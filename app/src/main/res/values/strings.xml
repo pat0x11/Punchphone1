@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Punchphone</string>
+    <string name="title_activity_entry_page">EntryPageActivity</string>
 </resources>
