@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">Punchphone</string>
     <string name="title_activity_entry_page">EntryPageActivity</string>
+
+    <array name="navItems">
+        <item>Main</item>
+        <item>Information Page</item>
+        <item>Schedule</item>
+        <item>History</item>
+        <item>Earnings</item>
+    </array>
 </resources>
