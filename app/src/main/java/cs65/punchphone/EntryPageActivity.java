@@ -160,18 +160,11 @@ public class EntryPageActivity extends AppCompatActivity implements NavigationVi
             dateInstance=current.getTime();
         }
 
-        SimpleDateFormat dateFormat=new SimpleDateFormat("EEE, MMMMM dd yyyy");
+        SimpleDateFormat dateFormat=new SimpleDateFormat("EEE, MMMM dd yyyy");
         String dateString=dateFormat.format(dateInstance);
 
         //set the text field to this string
         dateText.setText(dateString);
 
-        //setup the clock in 24-hour format
-        timeText.setFormat24Hour(TextClock.DEFAULT_FORMAT_24_HOUR);
-        TimeZone zone= null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
-            zone = current.getTimeZone();
-        }
-        timeText.setTimeZone(zone.toString());
     }
 }

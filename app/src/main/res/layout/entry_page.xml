@@ -45,13 +45,14 @@
                     android:layout_height="wrap_content"
                     android:inputType="date"
                     android:layout_below="@id/DateText"
+                    android:textSize="20sp"
                     android:layout_margin="5dp"
                     android:id="@+id/dateEditText" />
 
                 <TextView
                     android:text="Current Time:"
                     android:textStyle="bold"
-                    android:textSize="25dp"
+                    android:textSize="25sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -63,12 +64,14 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_below="@id/timeText"
+                    android:format12Hour="hh:mm:ss a zzz"
+                    android:textSize="20sp"
                     android:id="@+id/timeClock" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="25dp"
+                    android:textSize="25sp"
                     android:textStyle="bold"
                     android:text="You are currently:"
                     android:layout_marginTop="80dp"
