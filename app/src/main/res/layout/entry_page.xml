@@ -25,15 +25,43 @@
         <FrameLayout
             android:id="@+id/content_frame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:text="Current Date:"
+                    android:textStyle="bold"
+                    android:textSize="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:id="@+id/DateText" />
+                <TextView
+                    android:text="Current Time:"
+                    android:textStyle="bold"
+                    android:textSize="@android:style/TextAppearance.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_below="@+id/DateText"
+                    android:id="@+id/timeText" />
+            </RelativeLayout>
+        </FrameLayout>
         <!-- The navigation drawer -->
-        <ListView android:id="@+id/left_drawer"
-            android:layout_width="240dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:choiceMode="singleChoice"
-            android:divider="@android:color/transparent"
-            android:background="@color/white"/>
+
+        <android.support.design.widget.NavigationView
+        android:id="@+id/mainNavView"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/sidebarBackground"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/headernav"
+        app:menu="@menu/drawer"/>
     </android.support.v4.widget.DrawerLayout>
+
+
+
 
 </RelativeLayout>
