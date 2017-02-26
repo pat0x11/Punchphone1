@@ -14,7 +14,12 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 public class EntryPageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     protected DrawerLayout navDrawers;  //the drawer layout in navigation_menu.xml
@@ -22,6 +27,12 @@ public class EntryPageActivity extends AppCompatActivity implements NavigationVi
     protected ActionBarDrawerToggle mainActionBarToggle;    //the toggle used to create the nav menu
     protected NavigationView currentNav;                    //the navigation view on the main page
     protected DrawerLayout mDrawerLayout;                   //drawer layout for the class
+    public Button punchIn;                                  //punch in button
+    public Button punchOut;                                 //punch out button
+    public boolean punchStatus;                             //true=punched in, false=punched out
+    public TextView punchMessage;                           //the message displaying the punch status
+    public static TextView dateView;                        //holds onto the date on the UI
+    public static TextView timeView;                        //holds onto the time on the UI
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +54,22 @@ public class EntryPageActivity extends AppCompatActivity implements NavigationVi
         currentNav=(NavigationView)findViewById(R.id.mainNavView);
         currentNav.setNavigationItemSelectedListener(this);
 
+        //load the date and time views
+        dateView=(TextView)findViewById(R.id.dateField);
+        timeView=(TextView)findViewById(R.id.timeField);
 
         //setup the hamburger icon for the toolbar
         //implement the "hamburger" menu
         mainActionBarToggle=new ActionBarDrawerToggle(this,mDrawerLayout,myToolbar,R.string.openInfo
                 ,R.string.closeInfo);
         mainActionBarToggle.syncState();
+
+        //setup the buttons
+        punchIn=(Button)findViewById(R.id.punchIn);
+        punchOut=(Button)findViewById(R.id.punchOut);
+        punchMessage=(TextView)findViewById(R.id.statusField);
+        getInitialPunchStatus();
+
     }
 
     //handles when the user selects a navigation view item
@@ -59,5 +80,63 @@ public class EntryPageActivity extends AppCompatActivity implements NavigationVi
         Log.d("NavItemSelected",toCompare);
         mDrawerLayout.closeDrawers();
         return true;
+    }
+
+    // a helper method that determines what the punch status is
+    private boolean getInitialPunchStatus(){
+
+        String status=punchMessage.getText().toString();
+
+        //punched in
+        if (status.compareTo("Punched In")==0){
+            punchStatus=true;
+            punchIn.setEnabled(false);
+            punchOut.setEnabled(true);
+        }
+        else{
+            punchStatus=false;
+            punchIn.setEnabled(true);
+            punchOut.setEnabled(false);
+        }
+        return punchStatus;
+    }
+
+    //a helper method that handles punching in
+    public void handlePunchIn(View v){
+        //proceed if the user is not punched in
+        if (!punchStatus){
+            //disable the punch in button
+            punchIn.setEnabled(false);
+            //enable the punch out button
+            punchOut.setEnabled(true);
+
+            //update the text field
+            punchMessage.setText("Punched In");
+            punchMessage.setTextColor(getResources().getColor(R.color.greenStatus));
+            punchStatus=true;
+        }
+        else{
+            Toast toast = Toast.makeText(getApplicationContext(), R.string.punchError, Toast.LENGTH_SHORT);
+        }
+    }
+
+    // a helper method that handles punching out
+    //a helper method that handles punching in
+    public void handlePunchOut(View v){
+        //proceed if the user is not punched in
+        if (punchStatus){
+            //disable the punch in button
+            punchIn.setEnabled(true);
+            //enable the punch out button
+            punchOut.setEnabled(false);
+
+            //update the text field
+            punchMessage.setText("Punched Out");
+            punchMessage.setTextColor(getResources().getColor(R.color.red));
+            punchStatus=false;
+        }
+        else{
+            Toast toast = Toast.makeText(getApplicationContext(), R.string.punchError, Toast.LENGTH_SHORT);
+        }
     }
 }

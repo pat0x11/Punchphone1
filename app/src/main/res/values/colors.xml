@@ -5,4 +5,6 @@
     <color name="colorAccent">#60ca54</color>
     <color name="white">#FFFFFF</color>
     <color name="sidebarBackground">#c2c9c0</color>
+    <color name="red">#ff2626</color>
+    <color name="greenStatus">#6aff2a</color>
 </resources>

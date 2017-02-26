@@ -30,23 +30,84 @@
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
                 <TextView
                     android:text="Current Date:"
                     android:textStyle="bold"
-                    android:textSize="@android:style/TextAppearance.Medium"
+                    android:textSize="25dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:id="@+id/DateText" />
                 <TextView
-                    android:text="Current Time:"
-                    android:textStyle="bold"
-                    android:textSize="@android:style/TextAppearance.Medium"
+                    android:text="filler"
+                    android:textSize="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:layout_below="@+id/DateText"
+                    android:id="@+id/dateField" />
+                <TextView
+                    android:text="Current Time:"
+                    android:textStyle="bold"
+                    android:textSize="25dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_below="@+id/dateField"
                     android:id="@+id/timeText" />
+                <TextView
+                    android:text="filler"
+                    android:textSize="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_below="@+id/timeText"
+                    android:id="@+id/timeField" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:text="You are currently:"
+                    android:layout_marginTop="80dp"
+                    android:layout_below="@+id/timeField"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/status_header"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:id="@+id/statusField"
+                    android:text="Punched Out"
+                    android:textColor="@color/red"
+                    android:layout_below="@id/status_header"
+                    android:layout_margin="10dp"
+                    android:layout_centerHorizontal="true" />
+
+                <Button
+                    android:text="Punch in"
+                    android:layout_width="fill_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="70dp"
+                    android:id="@+id/punchIn"
+                    android:layout_below="@id/statusField"
+                    android:layout_centerHorizontal="true"
+                    android:onClick="handlePunchIn"/>
+                <Button
+                    android:text="Punch out"
+                    android:layout_width="fill_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginBottom="50dp"
+                    android:id="@+id/punchOut"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:onClick="handlePunchOut"/>
+
             </RelativeLayout>
         </FrameLayout>
         <!-- The navigation drawer -->

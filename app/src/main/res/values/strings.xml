@@ -11,4 +11,5 @@
     </array>
     <string name="openInfo">open</string>
     <string name="closeInfo">close</string>
+    <string name="punchError">Error: You are already punched in</string>
 </resources>
