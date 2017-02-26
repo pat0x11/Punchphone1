@@ -9,4 +9,6 @@
         <item>History</item>
         <item>Earnings</item>
     </array>
+    <string name="openInfo">open</string>
+    <string name="closeInfo">close</string>
 </resources>

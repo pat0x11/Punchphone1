@@ -20,21 +20,21 @@ public class EntryPageActivity extends AppCompatActivity {
 
         //setup the content view for the page
         setContentView(R.layout.entry_page);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        //setup the navigation bar on the left side of the page
-        String[] navItems=getResources().getStringArray(R.array.navItems);
-        setContentView(R.layout.navigation_menu);
-        navDrawers=(DrawerLayout)findViewById(R.id.drawer_layout);
-        navListView=(ListView)findViewById(R.id.navDrawerList);
+        //setup the toolbar
+        Toolbar myToolbar=(Toolbar)findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
 
-        setContentView(R.layout.nav_item_layout);
-        //setup the adapter for the navigation drawers
-        navListView.setAdapter(new ArrayAdapter<String>(this,R.layout.nav_item_layout,navItems));
+        //setup the navigation drawer
+        DrawerLayout mDrawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
+        ListView mListDrawer=(ListView)findViewById(R.id.left_drawer);
+        //get the array of menu items
+        String[] menuItems=getResources().getStringArray(R.array.navItems);
 
-        //setup the listener for the click
-
+        //setup the adapter for the listView
+        mListDrawer.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.nav_item_layout,menuItems));
+        //setup the listener for the adapter
     }
 
 }
