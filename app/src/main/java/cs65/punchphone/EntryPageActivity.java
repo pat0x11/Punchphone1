@@ -1,6 +1,9 @@
 package cs65.punchphone;
 
+import android.icu.util.Calendar;
+import android.icu.util.TimeZone;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -16,10 +19,14 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class EntryPageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     protected DrawerLayout navDrawers;  //the drawer layout in navigation_menu.xml
@@ -31,8 +38,8 @@ public class EntryPageActivity extends AppCompatActivity implements NavigationVi
     public Button punchOut;                                 //punch out button
     public boolean punchStatus;                             //true=punched in, false=punched out
     public TextView punchMessage;                           //the message displaying the punch status
-    public static TextView dateView;                        //holds onto the date on the UI
-    public static TextView timeView;                        //holds onto the time on the UI
+    public TextView dateText;                               //the text view containing the date
+    public TextClock timeText;                              //the text view containing the time
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,15 +61,16 @@ public class EntryPageActivity extends AppCompatActivity implements NavigationVi
         currentNav=(NavigationView)findViewById(R.id.mainNavView);
         currentNav.setNavigationItemSelectedListener(this);
 
-        //load the date and time views
-        dateView=(TextView)findViewById(R.id.dateField);
-        timeView=(TextView)findViewById(R.id.timeField);
-
         //setup the hamburger icon for the toolbar
         //implement the "hamburger" menu
         mainActionBarToggle=new ActionBarDrawerToggle(this,mDrawerLayout,myToolbar,R.string.openInfo
                 ,R.string.closeInfo);
         mainActionBarToggle.syncState();
+
+        //setup the date and time
+        timeText=(TextClock)findViewById(R.id.timeClock);
+        dateText=(TextView)findViewById(R.id.dateEditText);
+        setupDateTime();
 
         //setup the buttons
         punchIn=(Button)findViewById(R.id.punchIn);
@@ -138,5 +146,32 @@ public class EntryPageActivity extends AppCompatActivity implements NavigationVi
         else{
             Toast toast = Toast.makeText(getApplicationContext(), R.string.punchError, Toast.LENGTH_SHORT);
         }
+    }
+
+    //a helper method that handles setting up the date and the time on the UI
+    private void setupDateTime(){
+        //first get the date
+        Calendar current= null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            current = Calendar.getInstance();
+        }
+        Date dateInstance=null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            dateInstance=current.getTime();
+        }
+
+        SimpleDateFormat dateFormat=new SimpleDateFormat("EEE, MMMMM dd yyyy");
+        String dateString=dateFormat.format(dateInstance);
+
+        //set the text field to this string
+        dateText.setText(dateString);
+
+        //setup the clock in 24-hour format
+        timeText.setFormat24Hour(TextClock.DEFAULT_FORMAT_24_HOUR);
+        TimeZone zone= null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+            zone = current.getTimeZone();
+        }
+        timeText.setTimeZone(zone.toString());
     }
 }

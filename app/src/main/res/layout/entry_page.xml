@@ -39,14 +39,15 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:id="@+id/DateText" />
+
                 <TextView
-                    android:text="filler"
-                    android:textSize="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:inputType="date"
+                    android:layout_below="@id/DateText"
                     android:layout_margin="5dp"
-                    android:layout_below="@+id/DateText"
-                    android:id="@+id/dateField" />
+                    android:id="@+id/dateEditText" />
+
                 <TextView
                     android:text="Current Time:"
                     android:textStyle="bold"
@@ -54,16 +55,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:layout_below="@+id/dateField"
+                    android:layout_below="@+id/dateEditText"
                     android:id="@+id/timeText" />
-                <TextView
-                    android:text="filler"
-                    android:textSize="20dp"
+
+                <TextClock
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:layout_below="@+id/timeText"
-                    android:id="@+id/timeField" />
+                    android:layout_below="@id/timeText"
+                    android:id="@+id/timeClock" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -72,7 +72,7 @@
                     android:textStyle="bold"
                     android:text="You are currently:"
                     android:layout_marginTop="80dp"
-                    android:layout_below="@+id/timeField"
+                    android:layout_below="@+id/timeClock"
                     android:layout_centerHorizontal="true"
                     android:id="@+id/status_header"/>
 
