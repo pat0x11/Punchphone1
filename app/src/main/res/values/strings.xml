@@ -60,6 +60,16 @@
     <string name="change_hours">Change Hours</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">Cancel</string>
+    <string name="punch_in">Punch in</string>
+    <string name="punched_out">Punched Out</string>
+    <string name="punch_out">Punch out</string>
+    <string name="you_are_currently">You are currently:</string>
+    <string name="time_header">Current Time:</string>
+    <string name="date_header">Current Date:</string>
+    <string name="earnings">Earnings</string>
+    <string name="history">History</string>
+    <string name="schedule">Schedule</string>
+    <string name="main">Main</string>
 
 
 </resources>
