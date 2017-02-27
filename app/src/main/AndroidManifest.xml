@@ -32,15 +32,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-<<<<<<< HEAD
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-=======
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
->>>>>>> f02ef281409d6f3dbdf061fb00486fdc62c56ec5
             </intent-filter>
         </activity>
         <activity android:name=".HistoryActivity"/>
