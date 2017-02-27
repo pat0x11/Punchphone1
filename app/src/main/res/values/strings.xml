@@ -49,8 +49,6 @@
     <string name="ui_settings_wage_summary">What is your wage? ($/hr)</string>
     <string name="ui_settings_wage_title">Wage</string>
 
-<<<<<<< HEAD
-    <!--Text to do with the schedule interface-->
     <string name="monday">Monday:</string>
     <string name="tuesday">Tuesday:</string>
     <string name="wednesday">Wednesday:</string>
@@ -62,8 +60,6 @@
     <string name="change_hours">Change Hours</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">Cancel</string>
-=======
 
->>>>>>> 132d4a30c2c997843a063f53f60fe0f48883af42
 
 </resources>
