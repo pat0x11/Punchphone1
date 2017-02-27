@@ -26,9 +26,7 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support:design:25.2.0'
-<<<<<<< HEAD
     compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
-=======
->>>>>>> 132d4a30c2c997843a063f53f60fe0f48883af42
+
     testCompile 'junit:junit:4.12'
 }
