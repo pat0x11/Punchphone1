@@ -20,6 +20,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+//test comment
 public class EntryPageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
     protected DrawerLayout navDrawers;  //the drawer layout in navigation_menu.xml
     protected ListView navListView;     //the listView that will be populated with nav items
