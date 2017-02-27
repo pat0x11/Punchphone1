@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3f7628</color>
+    <color name="colorPrimaryDark">#020302</color>
+    <color name="colorAccent">#60ca54</color>
+    <color name="white">#FFFFFF</color>
+    <color name="sidebarBackground">#c2c9c0</color>
+    <color name="red">#ff2626</color>
+    <color name="greenStatus">#6aff2a</color>
+</resources>
