@@ -12,4 +12,54 @@
     <string name="openInfo">open</string>
     <string name="closeInfo">close</string>
     <string name="punchError">Error: You are already punched in</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="ui_settings_account_info">Account Info</string>
+
+
+    <string name="ui_settings_name_name">name</string>
+    <string name="ui_settings_name_key">name</string>
+    <string name="ui_settings_name_summary">This is your name</string>
+    <string name="ui_settings_name_title">Name</string>
+
+    <string name="ui_settings_age_name">age</string>
+    <string name="ui_settings_age_key">age</string>
+    <string name="ui_settings_age_summary">Please enter your age</string>
+    <string name="ui_settings_age_title">Age</string>
+
+    <string name="ui_settings_title_name">title</string>
+    <string name="ui_settings_title_key">title</string>
+    <string name="ui_settings_title_summary">What is your role</string>
+    <string name="ui_settings_title_title">Title (Position)</string>
+
+    <string name="ui_settings_wage_name">wage</string>
+    <string name="ui_settings_wage_key">wage</string>
+    <string name="ui_settings_wage_summary">What is your wage? ($/hr)</string>
+    <string name="ui_settings_wage_title">Wage</string>
+
+    <string name="monday">Monday:</string>
+    <string name="tuesday">Tuesday:</string>
+    <string name="wednesday">Wednesday:</string>
+    <string name="thursday">Thursday:</string>
+    <string name="friday">Friday:</string>
+    <string name="saturday">Saturday:</string>
+    <string name="sunday">Sunday:</string>
+    <string name="total">Total Hours</string>
+    <string name="change_hours">Change Hours</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancel</string>
+
+
 </resources>
