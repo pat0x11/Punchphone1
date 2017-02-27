@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-<<<<<<< HEAD
-      <module fileurl="file://$PROJECT_DIR$/Punchphone-master-2.iml" filepath="$PROJECT_DIR$/Punchphone-master-2.iml" />
-=======
+
       <module fileurl="file://$PROJECT_DIR$/Punchphone.iml" filepath="$PROJECT_DIR$/Punchphone.iml" />
->>>>>>> 132d4a30c2c997843a063f53f60fe0f48883af42
+
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
