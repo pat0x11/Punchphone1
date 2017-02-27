@@ -42,7 +42,9 @@ public class ScheduleActivity extends AppCompatActivity {
         TextView total = (TextView) findViewById(R.id.total_hours);
         Double totalHours = 0.0;
         if(!total.getText().toString().equals("")){
-            totalHours += Double.parseDouble(total.getText().toString());
+            String stringHours = total.getText().toString();
+            String[] hourArray = stringHours.split(" ");
+            totalHours += Double.parseDouble(hourArray[0]);
         }
         if(view != null && !view.getText().toString().equals("") && !total
                 .getText().toString().equals("")) {
@@ -53,7 +55,15 @@ public class ScheduleActivity extends AppCompatActivity {
             total.setText(Double.toString(totalHours+hours));
         }
 
-        total.setText(Double.toString(totalHours+ hours));
+        Double currentTotal = totalHours + hours;
+        String message = Double.toString(currentTotal);
+        if(currentTotal > 40){
+            message = Double.toString
+                    (currentTotal) + " You are receiving " + (currentTotal-40) +
+                    " overtime hour";
+            if(!((currentTotal-40) == 1)) message += "s";
+        }
+        total.setText(message);
         if(view != null) view.setText(Double.toString(hours));
 
 
