@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+//Carter Jacobsen 2/27/17
 public class ScheduleActivity extends AppCompatActivity {
 
     public static final int MONDAY_ID = 0;
