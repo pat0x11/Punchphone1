@@ -29,8 +29,8 @@ public class DialogHandler extends DialogFragment {
     }
 
     public Dialog onCreateDialog(Bundle savedState){
-        final String day = savedState.getString(DAY_KEY);
-        final int id = savedState.getInt(ID_KEY);
+        final String day = getArguments().getString(DAY_KEY);
+        final int id = getArguments().getInt(ID_KEY);
 
         final Activity parent = getActivity();
         AlertDialog.Builder builder = new AlertDialog.Builder(parent);

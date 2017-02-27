@@ -1,29 +1,21 @@
 package cs65.punchphone;
 
+import android.content.Intent;
 import android.icu.util.Calendar;
-import android.icu.util.TimeZone;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -87,6 +79,18 @@ public class EntryPageActivity extends AppCompatActivity implements NavigationVi
         String toCompare=item.getTitle().toString();
         Log.d("NavItemSelected",toCompare);
         mDrawerLayout.closeDrawers();
+
+        int id = item.getItemId();
+        if(id == R.id.mainTab){
+            Intent intent = new Intent(this, EntryPageActivity.class);
+            startActivity(intent);
+        } else if(id == R.id.scheduleTab){
+            startActivity(new Intent(this, ScheduleActivity.class));
+        }else if(id == R.id.earningTab){
+            startActivity(new Intent(this, EarningsActivity.class));
+        } else if(id == R.id.historyTab){
+            startActivity(new Intent(this, HistoryActivity.class));
+        }
         return true;
     }
 

@@ -2,6 +2,7 @@ package cs65.punchphone;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -30,22 +31,29 @@ public class ScheduleActivity extends AppCompatActivity {
     public void printHours(int id, double hours){
         TextView view = null;
         if(id == MONDAY_ID){
-            view = (TextView) findViewById(R.id.monday_change);
-        } else if(id == TUESDAY_ID) view = (TextView) findViewById(R.id.tuesday_change);
-        else if(id == WEDNESDAY_ID) view = (TextView) findViewById(R.id.wednesday_change);
-        else if(id == THURSDAY_ID) view = (TextView) findViewById(R.id.thursday_change);
-        else if(id == FRIDAY_ID) view = (TextView) findViewById(R.id.friday_change);
-        else if(id == SATURDAY_ID) view = (TextView) findViewById(R.id.saturday_change);
-        else if(id == SUNDAY_ID) view = (TextView) findViewById(R.id.sunday_change);
-
-        String currentHours = view.getText().toString();
-        Double doubleHours = Double.parseDouble(currentHours);
+            view = (TextView) findViewById(R.id.monday_hours);
+        } else if(id == TUESDAY_ID) view = (TextView) findViewById(R.id.tuesday_hours);
+        else if(id == WEDNESDAY_ID) view = (TextView) findViewById(R.id.wednesday_hours);
+        else if(id == THURSDAY_ID) view = (TextView) findViewById(R.id.thursday_hours);
+        else if(id == FRIDAY_ID) view = (TextView) findViewById(R.id.friday_hours);
+        else if(id == SATURDAY_ID) view = (TextView) findViewById(R.id.saturday_hours);
+        else if(id == SUNDAY_ID) view = (TextView) findViewById(R.id.sunday_hours);
 
         TextView total = (TextView) findViewById(R.id.total_hours);
-        Double totalHours = Double.parseDouble(total.getText().toString());
-        totalHours -= doubleHours;
-        total.setText(Double.toString(totalHours+hours));
+        Double totalHours = 0.0;
+        if(!total.getText().toString().equals("")){
+            totalHours += Double.parseDouble(total.getText().toString());
+        }
+        if(view != null && !view.getText().toString().equals("") && !total
+                .getText().toString().equals("")) {
+            String currentHours = view.getText().toString();
+            Log.d("cj", currentHours);
+            Double doubleHours = Double.parseDouble(currentHours);
+            totalHours -= doubleHours;
+            total.setText(Double.toString(totalHours+hours));
+        }
 
+        total.setText(Double.toString(totalHours+ hours));
         if(view != null) view.setText(Double.toString(hours));
 
 

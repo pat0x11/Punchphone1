@@ -6,10 +6,6 @@
             android:title="Main"
             />
         <item
-            android:id="@+id/informationTab"
-            android:title="Information"
-            />
-        <item
             android:id="@+id/scheduleTab"
             android:title="Schedule"
             />
