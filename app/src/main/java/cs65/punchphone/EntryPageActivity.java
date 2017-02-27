@@ -70,6 +70,7 @@ public class EntryPageActivity extends AppCompatActivity implements NavigationVi
         punchMessage=(TextView)findViewById(R.id.statusField);
         getInitialPunchStatus();
 
+        new GCMRegAsyncTask(this).execute();
     }
 
     //handles when the user selects a navigation view item
