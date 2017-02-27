@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="@string/ui_settings_account_info" >
+
+        <EditTextPreference
+            android:name="@string/ui_settings_name_name"
+            android:key="@string/ui_settings_name_key"
+            android:summary="@string/ui_settings_name_summary"
+            android:title="@string/ui_settings_name_title" />
+        <EditTextPreference
+            android:name="@string/ui_settings_age_name"
+            android:key="@string/ui_settings_age_key"
+            android:summary="@string/ui_settings_age_summary"
+            android:title="@string/ui_settings_age_title" />
+        <EditTextPreference
+            android:name="@string/ui_settings_title_name"
+            android:key="@string/ui_settings_title_key"
+            android:summary="@string/ui_settings_title_summary"
+            android:title="@string/ui_settings_title_title" />
+        <EditTextPreference
+            android:name="@string/ui_settings_wage_name"
+            android:key="@string/ui_settings_wage_key"
+            android:summary="@string/ui_settings_wage_summary"
+            android:title="@string/ui_settings_wage_title" />
+
+
+
+    </PreferenceCategory>
+
+
+</PreferenceScreen>
