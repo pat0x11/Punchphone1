@@ -26,13 +26,11 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support:design:25.2.0'
-<<<<<<< HEAD
     compile 'com.google.android.gms:play-services-gcm:10.2.0'
     compile 'com.google.code.findbugs:jsr305:2.0.1'
-=======
+
     compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
 
->>>>>>> f02ef281409d6f3dbdf061fb00486fdc62c56ec5
     testCompile 'junit:junit:4.12'
     compile project(path: ':backend', configuration: 'android-endpoints')
 }
