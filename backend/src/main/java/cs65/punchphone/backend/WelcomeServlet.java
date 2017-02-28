@@ -2,6 +2,8 @@ package cs65.punchphone.backend;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +18,11 @@ public class WelcomeServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
+        Logger logger = Logger.getLogger (WelcomeServlet.class.getName());
+
+        String employerName=request.getParameter("employername");
+        logger.log(Level.INFO,employerName);
+
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
@@ -24,13 +31,15 @@ public class WelcomeServlet extends HttpServlet {
                 "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\">\n" +
                 "<title>PunchPhone</title>\n" +
                 "</head>\n" +
-                "<body>\n" +
                 "<center>\n" +
-                "<b>Welcome to PunchPhone Server</b>\n" +
-                "<br>" +
-                "<a href=\"history.do\">Punch History</a>\n" +
-                "</center>\n" +
-                "</body>\n" +
+                "<h1>Welcome to Your PunchPhone Employer Page</h1>\n" +
+                "</center><br>" +
+                "<body>"+
+                "<h2>Employer: "+employerName+"</h2>\n"+
+                "<a href=\"history.do\">Punch History</a></br>\n" +
+                "</body>\n \n" +
+                "<footer><a href=\"login\">Back to Login</a>" +
+                "</footer>"+
                 "</html>");
     }
 
