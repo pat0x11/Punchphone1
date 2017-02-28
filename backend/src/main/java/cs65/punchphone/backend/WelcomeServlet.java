@@ -56,6 +56,7 @@ public class WelcomeServlet extends HttpServlet {
                 "<h3>Main Menu</h3>\n"+
                 "<a href=\"history.do?username="+employerName+"\">Punch History</a><br>" +
                 "<a href=\"settings.do?username="+employerName+"\">Employer Settings</a></br>\n"+
+                "<a href=\"home.html\">Home</a><br>"+
                 "<a href=\"login.html\">Logout</a>" +
                 "</center></html>");
     }
