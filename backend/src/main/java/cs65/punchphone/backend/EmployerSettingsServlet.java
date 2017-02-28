@@ -20,8 +20,8 @@ public class EmployerSettingsServlet extends HttpServlet {
             throws IOException, ServletException {
         Logger logger = Logger.getLogger (WelcomeServlet.class.getName());
 
-        String employerName=request.getParameter("employername");
-
+        String username=request.getParameter("username");
+        logger.log(Level.INFO,username);
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
@@ -34,7 +34,7 @@ public class EmployerSettingsServlet extends HttpServlet {
                 "<h1>Employer Settings</h1>\n" +
                 "</center><br>" +
                 "<body>"+
-                "<h2>Employer: "+employerName+"</h2>\n"+
+                "<h2>Employer: "+username+"</h2>\n"+
                 "<footer><a href=\"login\">Back to Login</a>" +
                 "</footer>"+
                 "</html>");
