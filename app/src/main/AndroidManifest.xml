@@ -32,14 +32,9 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
-<<<<<<< HEAD
-
-                <action android:name="android.intent.action.MAIN"/>
-=======
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
->>>>>>> 6778ab82f8863222c0c7b3236c0679f5559ba785
 
             </intent-filter>
         </activity>
