@@ -25,7 +25,7 @@ public class WelcomeServlet extends HttpServlet {
 
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
-
+        request.setAttribute("employername",employerName);
         out.write("<html>\n" +
                 "<head>\n" +
                 "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\">\n" +
@@ -36,7 +36,8 @@ public class WelcomeServlet extends HttpServlet {
                 "</center><br>" +
                 "<body>"+
                 "<h2>Employer: "+employerName+"</h2>\n"+
-                "<a href=\"history.do\">Punch History</a></br>\n" +
+                "<a href=\"history.do\">Punch History</a></br>" +
+                "<br><a href=\"settings.do\">Employer Settings</a></br>\n"+
                 "</body>\n \n" +
                 "<footer><a href=\"login\">Back to Login</a>" +
                 "</footer>"+

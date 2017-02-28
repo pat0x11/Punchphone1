@@ -53,4 +53,12 @@
         <servlet-name>login</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>settings</servlet-name>
+        <servlet-class>cs65.punchphone.backend.EmployerSettingsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>settings</servlet-name>
+        <url-pattern>/settings.do</url-pattern>
+    </servlet-mapping>
 </web-app>
