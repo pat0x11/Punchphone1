@@ -44,8 +44,9 @@ public class DialogHandler extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
                 String current = entry.getText().toString();
                 if(current.equals(""))current= "0";
-                ((ScheduleActivity) getActivity()).printHours(id, Double
-                        .parseDouble(current));
+                // TODO: fix this for fragment
+//                ((ScheduleActivity) getActivity()).printHours(id, Double
+//                        .parseDouble(current));
             }
         });
         builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface
