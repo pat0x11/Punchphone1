@@ -199,4 +199,16 @@ public class EmployerDataStore {
         //at this point you can add the new employer into the datastore
         return addNewUser(updatedVersion);
     }
+
+    //a method that returns the company name, given a username
+    public static String getCompanyName(String username){
+        Employer current=getEmployerByUsername(username);
+
+        //make sure the employer isn't null
+        if (current!=null){
+            return current.mCompany;
+        }
+        //if it is null, don't return a string
+        return null;
+    }
 }
