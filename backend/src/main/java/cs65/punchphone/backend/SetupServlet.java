@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import cs65.punchphone.backend.data.Employer;
+import cs65.punchphone.backend.data.EmployerDataStore;
+
 /**
  * Created by Jack on 2/28/17.
  */
@@ -43,13 +46,20 @@ public class SetupServlet extends HttpServlet {
             response.sendRedirect("setupError.html");
         }
         else{
-            mLogger.log(Level.INFO,"Successful Login");
+
+            //try to add to the datastore
+            Employer newEmployer=new Employer(username,password,company,street,city,state,zipcode,range);
+            EmployerDataStore.addNewUser(newEmployer);
+
+            mLogger.log(Level.INFO,"Successful Addition");
+            //redirect the employer to the welcome page
+            response.sendRedirect("welcome.do?employername="+username+"&password="+password);
         }
     }
 
     //the get method for this class, should be the same as post
-    public void doGet(HttpServletRequest request, HttpServletResponse response){
-
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        doPost(request,response);
     }
 
     //a helper method that checks to see if the parameters are null
