@@ -27,7 +27,8 @@ import lecho.lib.hellocharts.model.LineChartData;
 import lecho.lib.hellocharts.model.PointValue;
 import lecho.lib.hellocharts.view.LineChartView;
 
-
+// comment
+// we changed this 
 public class EarningsFragment extends Fragment {
 
     LineChartView lineChartView;
