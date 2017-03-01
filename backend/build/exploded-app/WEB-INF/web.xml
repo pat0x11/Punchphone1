@@ -53,4 +53,12 @@
         <servlet-name>settings</servlet-name>
         <url-pattern>/settings.do</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>setup</servlet-name>
+        <servlet-class>cs65.punchphone.backend.SetupServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>setup</servlet-name>
+        <url-pattern>/setup.do</url-pattern>
+    </servlet-mapping>
 </web-app>
