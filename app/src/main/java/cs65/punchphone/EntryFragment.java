@@ -4,13 +4,16 @@ import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextClock;
@@ -21,7 +24,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 //test comment
-public class EntryPageActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class EntryFragment extends Fragment {
     protected DrawerLayout navDrawers;  //the drawer layout in navigation_menu.xml
     protected ListView navListView;     //the listView that will be populated with nav items
     protected ActionBarDrawerToggle mainActionBarToggle;    //the toggle used to create the nav menu
@@ -34,67 +37,83 @@ public class EntryPageActivity extends AppCompatActivity implements NavigationVi
     public TextView dateText;                               //the text view containing the date
     public TextClock timeText;                              //the text view containing the time
 
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-        //setup the content view for the page
-        setContentView(R.layout.entry_page);
-
-        //setup the toolbar
-        Toolbar myToolbar=(Toolbar)findViewById(R.id.my_toolbar);
-        setSupportActionBar(myToolbar);
+        View view = inflater.inflate(R.layout.fragment_entry, container, false);
 
 
+//        //setup the content view for the page
+//        setContentView(R.layout.fragment_entry);
+//
+//        //setup the toolbar
+//        Toolbar myToolbar=(Toolbar)findViewById(R.id.my_toolbar);
+//        setSupportActionBar(myToolbar);
+
+//
         //setup the navigation drawer
-        mDrawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
-
-        //setup an adapter for the hamburger navigation menu
-        //try to listen for when the user selects a tab
-        currentNav=(NavigationView)findViewById(R.id.mainNavView);
-        currentNav.setNavigationItemSelectedListener(this);
+       // mDrawerLayout=(DrawerLayout)getView().findViewById(R.id.drawer_layout);
+//
+//        //setup an adapter for the hamburger navigation menu
+//        //try to listen for when the user selects a tab
+//        currentNav=(NavigationView)findViewById(R.id.mainNavView);
+//        currentNav.setNavigationItemSelectedListener(this);
 
         //setup the hamburger icon for the toolbar
         //implement the "hamburger" menu
-        mainActionBarToggle=new ActionBarDrawerToggle(this,mDrawerLayout,myToolbar,R.string.openInfo
-                ,R.string.closeInfo);
-        mainActionBarToggle.syncState();
+//        mainActionBarToggle=new ActionBarDrawerToggle(this,mDrawerLayout,myToolbar,R.string.openInfo
+//                ,R.string.closeInfo);
+//        mainActionBarToggle.syncState();
 
         //setup the date and time
-        timeText=(TextClock)findViewById(R.id.timeClock);
-        dateText=(TextView)findViewById(R.id.dateEditText);
+        timeText=(TextClock) view.findViewById(R.id.timeClock);
+        dateText=(TextView) view.findViewById(R.id.dateEditText);
         setupDateTime();
 
         //setup the buttons
-        punchIn=(Button)findViewById(R.id.punchIn);
-        punchOut=(Button)findViewById(R.id.punchOut);
-        punchMessage=(TextView)findViewById(R.id.statusField);
+        punchIn=(Button)view.findViewById(R.id.punchIn);
+        punchIn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                handlePunchIn(v);
+            }
+        });
+        punchOut=(Button)view.findViewById(R.id.punchOut);
+        punchOut.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                handlePunchOut(v);
+            }
+        });
+        punchMessage=(TextView)view.findViewById(R.id.statusField);
         getInitialPunchStatus();
 
-        new GCMRegAsyncTask(this).execute();
+        new GCMRegAsyncTask(getContext()).execute();
+        return view;
     }
 
-    //handles when the user selects a navigation view item
-    @Override
-    public boolean onNavigationItemSelected( MenuItem item) {
-        //get the option that was selected
-        String toCompare=item.getTitle().toString();
-        Log.d("NavItemSelected",toCompare);
-        mDrawerLayout.closeDrawers();
-
-        int id = item.getItemId();
-        if(id == R.id.mainTab){
-            Intent intent = new Intent(this, EntryPageActivity.class);
-            startActivity(intent);
-        } else if(id == R.id.scheduleTab){
-            startActivity(new Intent(this, ScheduleActivity.class));
-        }else if(id == R.id.earningTab){
-            startActivity(new Intent(this, EarningsActivity.class));
-        } else if(id == R.id.historyTab){
-            startActivity(new Intent(this, HistoryActivity.class));
-        }
-        return true;
-    }
+//    //handles when the user selects a navigation view item
+//    @Override
+//    public boolean onNavigationItemSelected( MenuItem item) {
+//        //get the option that was selected
+//        String toCompare=item.getTitle().toString();
+//        Log.d("NavItemSelected",toCompare);
+//        mDrawerLayout.closeDrawers();
+//
+//        int id = item.getItemId();
+//        if(id == R.id.mainTab){
+//            Intent intent = new Intent(this, EntryPageActivity.class);
+//            startActivity(intent);
+//        } else if(id == R.id.scheduleTab){
+//            startActivity(new Intent(this, ScheduleActivity.class));
+//        }else if(id == R.id.earningTab){
+//            startActivity(new Intent(this, EarningsActivity.class));
+//        } else if(id == R.id.historyTab){
+//            startActivity(new Intent(this, HistoryActivity.class));
+//        }
+//        return true;
+//    }
 
     // a helper method that determines what the punch status is
     private boolean getInitialPunchStatus(){
@@ -130,7 +149,8 @@ public class EntryPageActivity extends AppCompatActivity implements NavigationVi
             punchStatus=true;
         }
         else{
-            Toast toast = Toast.makeText(getApplicationContext(), R.string.punchError, Toast.LENGTH_SHORT);
+            //Toast toast = Toast.makeText(getApplicationContext(), R.string.punchError, Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getContext(), R.string.punchError, Toast.LENGTH_SHORT);
         }
     }
 
@@ -150,7 +170,8 @@ public class EntryPageActivity extends AppCompatActivity implements NavigationVi
             punchStatus=false;
         }
         else{
-            Toast toast = Toast.makeText(getApplicationContext(), R.string.punchError, Toast.LENGTH_SHORT);
+            //Toast toast = Toast.makeText(getApplicationContext(), R.string.punchError, Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getContext(), R.string.punchError, Toast.LENGTH_SHORT);
         }
     }
 

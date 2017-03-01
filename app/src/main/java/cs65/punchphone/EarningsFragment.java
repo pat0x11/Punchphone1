@@ -3,9 +3,13 @@ package cs65.punchphone;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -23,21 +27,24 @@ import lecho.lib.hellocharts.model.LineChartData;
 import lecho.lib.hellocharts.model.PointValue;
 import lecho.lib.hellocharts.view.LineChartView;
 
-public class EarningsActivity extends AppCompatActivity {
+
+public class EarningsFragment extends Fragment {
 
     LineChartView lineChartView;
     Context context;
     TableLayout tableLayout;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_earnings);
-        lineChartView = (LineChartView) findViewById(R.id.chart);
-        context = getApplicationContext();
-        tableLayout = (TableLayout) findViewById(R.id.table_layout);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view =  inflater.inflate(R.layout.fragment_earnings, container, false);
+        lineChartView = (LineChartView) view.findViewById(R.id.chart);
+        context = getContext();
+        tableLayout = (TableLayout) view.findViewById(R.id.table_layout);
         drawChart();
+        return view;
     }
+
 
     public void drawChart() {
 
