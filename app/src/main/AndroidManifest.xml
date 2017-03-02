@@ -25,17 +25,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".EntryPageActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-        <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".ScheduleActivity"></activity>
-        <activity android:name=".EarningsActivity"></activity>
+
         <activity android:name=".MainActivity"
             android:screenOrientation="portrait">
 
@@ -45,7 +37,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <receiver
+            android:name=".ExtendedBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <category android:name="John_Cardwell_BR" />
+            </intent-filter>
+        </receiver>
+        <service android:name=".IntentServiceGCM" />
     </application>
 
 

@@ -7,6 +7,7 @@ import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import cs65.punchphone.view.SlidingTabLayout;
@@ -23,7 +24,6 @@ public class MainActivity extends AppCompatActivity {
     private SettingsFragment mSettingsFragment;
     private EarningsFragment mEarningsFragment;
     private ScheduleFragment mScheduleFragment;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +55,18 @@ public class MainActivity extends AppCompatActivity {
 
         slidingTabLayout.setDistributeEvenly(true);
         slidingTabLayout.setViewPager(viewPager);
+
+//        //get all employers from the database
+//        new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    ServerHelper.getAllEmployers();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }.run();
 
     }
 
