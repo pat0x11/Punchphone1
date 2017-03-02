@@ -8,6 +8,7 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -210,5 +211,34 @@ public class EmployerDataStore {
         }
         //if it is null, don't return a string
         return null;
+    }
+
+    //a method that gets all employers in the datastore
+    public static ArrayList<Employer> getAllEmployersInDatastore(){
+        //declare the return value and initialize it
+        ArrayList<Employer> employers=new ArrayList<Employer>();
+
+        Query query = new Query(Employer.EMPLOYER_ENTITY_NAME);
+
+        // get every record from the class' datastore, don't need a filter
+        query.setFilter(null);
+        // set query's ancestor to get strong consistency
+        query.setAncestor(getKey());
+
+        PreparedQuery pq = mDatastore.prepare(query);
+
+        //convert each entity to an employer object
+        for (Entity entity : pq.asIterable()) {
+            String username=entity.getProperty(Employer.EMPLOYER_USERNAME).toString();
+
+            Employer currentEntry = getEmployerByUsername(username);
+
+            //add the employer object to the arrayList if the employer object isn't null
+            if (currentEntry != null) {
+                employers.add(currentEntry);
+            }
+        }
+
+        return employers;
     }
 }

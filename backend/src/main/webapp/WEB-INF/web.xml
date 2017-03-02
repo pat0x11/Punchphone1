@@ -69,4 +69,12 @@
         <servlet-name>update</servlet-name>
         <url-pattern>/update.do</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>connect</servlet-name>
+        <servlet-class>cs65.punchphone.backend.appOpenedServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    <servlet-name>connect</servlet-name>
+    <url-pattern>/connect.do</url-pattern>
+    </servlet-mapping>
 </web-app>
