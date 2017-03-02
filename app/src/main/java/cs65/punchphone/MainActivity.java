@@ -1,9 +1,11 @@
 package cs65.punchphone;
 
 import android.app.Fragment;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
 import java.util.ArrayList;
 
@@ -54,7 +56,17 @@ public class MainActivity extends AppCompatActivity {
         slidingTabLayout.setDistributeEvenly(true);
         slidingTabLayout.setViewPager(viewPager);
 
+    }
 
-
+    //Class to get messages from the service
+    private class MessageHandler extends Handler {
+        @Override
+        public void handleMessage(Message message){
+            if (message.what == LocationService.EMPLOYEE_PUNCHOUT){ //the service has
+                
+            } else {
+                super.handleMessage(message);
+            }
+        }
     }
 }
