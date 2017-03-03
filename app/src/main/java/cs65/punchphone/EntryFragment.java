@@ -1,17 +1,12 @@
 package cs65.punchphone;
 
-import android.content.Intent;
+import android.app.Fragment;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.app.Fragment;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -36,6 +31,7 @@ public class EntryFragment extends Fragment {
     public TextView punchMessage;                           //the message displaying the punch status
     public TextView dateText;                               //the text view containing the date
     public TextClock timeText;                              //the text view containing the time
+    private Long punchInTime;
 
 
 
@@ -89,7 +85,7 @@ public class EntryFragment extends Fragment {
         punchMessage=(TextView)view.findViewById(R.id.statusField);
         getInitialPunchStatus();
 
-        new GCMRegAsyncTask(getContext()).execute();
+        new GCMRegAsyncTask(getActivity().getApplicationContext()).execute();
         return view;
     }
 
@@ -150,7 +146,8 @@ public class EntryFragment extends Fragment {
         }
         else{
             //Toast toast = Toast.makeText(getApplicationContext(), R.string.punchError, Toast.LENGTH_SHORT);
-            Toast toast = Toast.makeText(getContext(), R.string.punchError, Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                    R.string.punchError, Toast.LENGTH_SHORT);
         }
     }
 
@@ -171,7 +168,8 @@ public class EntryFragment extends Fragment {
         }
         else{
             //Toast toast = Toast.makeText(getApplicationContext(), R.string.punchError, Toast.LENGTH_SHORT);
-            Toast toast = Toast.makeText(getContext(), R.string.punchError, Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getActivity().getApplicationContext(),
+                    R.string.punchError, Toast.LENGTH_SHORT);
         }
     }
 
