@@ -34,6 +34,11 @@ public class IntentServiceGCM extends IntentService {
 
                 String content=extras.getString("message");
 
+                String[] split = content.split(" ");
+                MainActivity.latitude = Double.parseDouble(split[0]);
+                MainActivity.longitude = Double.parseDouble(split[1]);
+                MainActivity.radius = Integer.parseInt(split[2]);
+                MainActivity.dataRecieved = true;
                 Log.d("message in receiver",content);
 
             }
