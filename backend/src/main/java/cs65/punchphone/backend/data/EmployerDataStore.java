@@ -74,6 +74,8 @@ public class EmployerDataStore {
         newEntity.setProperty(Employer.EMPLOYER_STATE,toAdd.mState);
         newEntity.setProperty(Employer.EMPLOYER_ZIPCODE,toAdd.mZip);
         newEntity.setProperty(Employer.EMPLOYER_RADIUS,toAdd.mRadius);
+        newEntity.setProperty(Employer.EMPLOYER_MAX_NORMAL,toAdd.mNormal);
+        newEntity.setProperty(Employer.EMPLOYER_MAX_OVERTIME,toAdd.mOvertime);
 
         //add the entity to the datastore
         mDatastore.put(newEntity);
@@ -139,9 +141,12 @@ public class EmployerDataStore {
         String state=result.getProperty(Employer.EMPLOYER_STATE).toString();
         String zip=result.getProperty(Employer.EMPLOYER_ZIPCODE).toString();
         String radius=result.getProperty(Employer.EMPLOYER_RADIUS).toString();
+        String overtime=result.getProperty(Employer.EMPLOYER_MAX_OVERTIME).toString();
+        String normal=result.getProperty(Employer.EMPLOYER_MAX_NORMAL).toString();
 
         //setup a new employer object
-        Employer toReturn=new Employer(dbUsername,password,company,street,city,state,zip,radius);
+        Employer toReturn=new Employer(dbUsername,password,company,street,city,state,zip,radius,normal,
+                overtime);
         return toReturn;
     }
 
