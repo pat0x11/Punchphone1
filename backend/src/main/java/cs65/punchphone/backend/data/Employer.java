@@ -21,6 +21,8 @@ public class Employer {
     public static final String EMPLOYER_STATE="employerState";
     public static final String EMPLOYER_ZIPCODE="employerZipcode";
     public static final String EMPLOYER_RADIUS="employerRadius";
+    public static final String EMPLOYER_MAX_OVERTIME="overtime";
+    public static final String EMPLOYER_MAX_NORMAL="normalHrs";
 
     //the object variables
     public String mUsername;
@@ -31,10 +33,12 @@ public class Employer {
     public String mState;
     public String mZip;
     public String mRadius;
+    public String mNormal;
+    public String mOvertime;
 
     //the constructor for the class
     public Employer(String username,String password,String company,String street,
-                    String city, String state, String zip, String radius){
+                    String city, String state, String zip, String radius, String normal, String overtime){
         this.mUsername=username;
         this.mPassword=password;
         this.mCompany=company;
@@ -43,6 +47,8 @@ public class Employer {
         this.mState=state;
         this.mZip=zip;
         this.mRadius=radius;
+        this.mNormal=normal;
+        this.mOvertime=overtime;
     }
 
 

@@ -31,6 +31,8 @@ public class SetupServlet extends HttpServlet {
         String state=request.getParameter("state");
         String zipcode=request.getParameter("zipcode");
         String range=request.getParameter("radius");
+        String normalHr=request.getParameter("normal");
+        String overtime=request.getParameter("overtime");
 
         mLogger.log(Level.INFO,username);
         mLogger.log(Level.INFO,password);
@@ -40,15 +42,18 @@ public class SetupServlet extends HttpServlet {
         mLogger.log(Level.INFO,state);
         mLogger.log(Level.INFO,zipcode);
         mLogger.log(Level.INFO,range);
+        mLogger.log(Level.INFO,normalHr);
+        mLogger.log(Level.INFO,overtime);
 
         //make sure none of the fields are null, if they are...send the user back to the setup page
-        if (!checkParameters(username,password,company,street,city,state,zipcode,range)){
+        if (!checkParameters(username,password,company,street,city,state,zipcode,range,normalHr,overtime)){
             response.sendRedirect("setupError.html");
         }
         else{
 
             //try to add to the datastore
-            Employer newEmployer=new Employer(username,password,company,street,city,state,zipcode,range);
+            Employer newEmployer=new Employer(username,password,company,street,city,state,zipcode,range,
+                    normalHr,overtime);
             EmployerDataStore.addNewUser(newEmployer);
 
             mLogger.log(Level.INFO,"Successful Addition");
@@ -64,14 +69,15 @@ public class SetupServlet extends HttpServlet {
 
     //a helper method that checks to see if the parameters are null
     public boolean checkParameters(String username,String password, String company, String street, String city,
-                           String state, String zipcode, String radius){
+                           String state, String zipcode, String radius, String normal, String overtime){
         //first check if they are null
         if (username==null||password==null||company==null||street==null||city==null||state==null||
-                zipcode==null||radius==null){
+                zipcode==null||radius==null || normal==null || overtime==null){
             return false;
         }
         if (username.length()==0||password.length()==0||company.length()==0||street.length()==0||
-                city.length()==0||state.length()==0||zipcode.length()==0||radius.length()==0){
+                city.length()==0||state.length()==0||zipcode.length()==0||radius.length()==0
+                || normal.length()==0 || overtime.length()==0){
             return false;
         }
         //at this point the inputs are valid

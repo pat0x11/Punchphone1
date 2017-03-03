@@ -82,12 +82,16 @@ public class appOpenedServlet extends HttpServlet {
         String city=toConvert.mCity;
         String state=toConvert.mState;
         String zip=toConvert.mZip;
+        String normalTime=toConvert.mNormal;
+        String overtime=toConvert.mOvertime;
 
         //add them to the JSON Object
         toReturn.put("street",street);
         toReturn.put("city",city);
         toReturn.put("state",state);
         toReturn.put("zip",zip);
+        toReturn.put("normalHrs",normalTime);
+        toReturn.put("overtimeHrs",overtime);
 
         return toReturn;
 

@@ -34,6 +34,8 @@ public class updateInformation extends HttpServlet {
         String newState=request.getParameter("newState");
         String newZip=request.getParameter("newZipcode");
         String newRadius=request.getParameter("newRadius");
+        String newNormal=request.getParameter("newNormal");
+        String newOvertime=request.getParameter("newOvertime");
 
         //setup a new Employer that will be used to update in the datastore
         //initially all values are equal to the old values
@@ -45,6 +47,8 @@ public class updateInformation extends HttpServlet {
         String toAddState=oldEntry.mState;
         String toAddZip=oldEntry.mZip;
         String toAddRadius=oldEntry.mRadius;
+        String toAddNormal=oldEntry.mNormal;
+        String toAddOvertime=oldEntry.mOvertime;
 
         //check each of the new values to see if they are null
         //if they aren't, then replace the toAdd... values with the new value
@@ -72,10 +76,15 @@ public class updateInformation extends HttpServlet {
         if (newRadius!=null && newRadius.length()!=0){
             toAddRadius=newRadius;
         }
-
+        if (newNormal!= null && newNormal.length()!=0){
+            toAddNormal=newNormal;
+        }
+        if (newOvertime!= null && newOvertime.length()!=0){
+            toAddOvertime=newOvertime;
+        }
         //create a new employer object
         Employer toAdd=new Employer(toAddUsername,toAddPassword,toAddCompany,toAddStreet,toAddCity,toAddState,
-                toAddZip,toAddRadius);
+                toAddZip,toAddRadius,toAddNormal,toAddOvertime);
 
         //at this point, all values are checked, so update the employer in the datastore
         EmployerDataStore.updateEntry(oldUsername,toAdd);

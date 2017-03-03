@@ -57,7 +57,10 @@ public class EmployerSettingsServlet extends HttpServlet {
                 "City:         <input type=text name=newCity placeholder="+current.mCity+"><br>"+
                 "State:        <input type=text name=newState placeholder="+current.mState+"><br>"+
                 "Zipcode:      <input type=text name=newZipcode placeholder="+current.mZip+"><br>"+
-                "Radius:       <input type=text name=newRadius placeholder="+current.mRadius+"><br></br>"+
+                "Radius:       <input type=text name=newRadius placeholder="+current.mRadius+"><br>" +
+                "Normal Hours: <input type=text name=newNormal placeholder="+current.mNormal+"><br>"+
+                "Overtime Hours: <input type=text name=newOvertime placeholder="+current.mOvertime+"><br>"+
+                "</br>"+
                 "<input type=submit value=\"Update Profile\" name=submitButton><br>"+
                 "</form><footer><a href=\"welcome.do?employername="+username+"&password="
                 +current.mPassword+"\">Back to Welcome Page</a>" +
