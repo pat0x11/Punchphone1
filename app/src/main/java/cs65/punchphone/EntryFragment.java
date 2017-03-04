@@ -128,7 +128,7 @@ public class EntryFragment extends Fragment {
             // How do we get company ....
             punchEntry.setCompany("my Company");
             punchEntry.setSite("new site");
-            punchEntry.setDateTime(java.util.Calendar.getInstance());
+            punchEntry.setInDateTime(java.util.Calendar.getInstance());
 
 
         }
@@ -154,8 +154,10 @@ public class EntryFragment extends Fragment {
             punchMessage.setTextColor(getResources().getColor(R.color.red));
             punchStatus=false;
 
+            punchEntry.setOutDateTime(java.util.Calendar.getInstance());
             int duration = createDuration();
             punchEntry.setDuration(duration);
+
 
             SharedPreferences settings = PreferenceManager
                     .getDefaultSharedPreferences(getContext());
@@ -174,7 +176,9 @@ public class EntryFragment extends Fragment {
     }
 
     private int createDuration(){
-        int duration = (int) ((System.currentTimeMillis() - punchEntry.getDateTimeMillis()) / 1000);
+        int duration = (int) ((punchEntry.getOutDateTimeMillis() - punchEntry
+                .getInDateTimeMillis())
+                / 1000);
         return duration;
     }
 
