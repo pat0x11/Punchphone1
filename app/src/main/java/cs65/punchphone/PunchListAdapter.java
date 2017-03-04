@@ -35,7 +35,7 @@ public class PunchListAdapter extends ArrayAdapter<PunchEntry> {
             input = "manual";
         }
 
-        String first = entry.getDateTimeMillis() + " at " + entry.getSite();
+        String first = entry.getInDateTimeMillis() + " at " + entry.getSite();
         String second = input + ": for " + entry.getDuration() + " earning: $" + entry.getEarnings();
 
         TextView line1 = (TextView) convertView.findViewById(R.id.first_line);

@@ -16,7 +16,8 @@ public class PunchEntry {
 
     private String name;
     private Long id;
-    private Calendar dateTime;
+    private Calendar inDateTime;
+    private Calendar outDateTime;
     private int duration;
     private String company;
     private String site;
@@ -26,7 +27,8 @@ public class PunchEntry {
 
     public PunchEntry (){
         this.inputType = -1;
-        this.dateTime = Calendar.getInstance();
+        this.inDateTime = Calendar.getInstance();
+        this.outDateTime = Calendar.getInstance();
         this.duration = 0;
         this.company = "";
         this.site = "";
@@ -43,24 +45,36 @@ public class PunchEntry {
         this.id = newId;
     }
 
-    public Calendar getDateTime (){
-        return dateTime;
+    public Calendar getInDateTime(){
+        return inDateTime;
     }
 
-    public long getDateTimeMillis() {
-        return dateTime.getTimeInMillis();
+    public long getInDateTimeMillis() {
+        return inDateTime.getTimeInMillis();
     }
 
-    public void setDateTime(Calendar newDateTime){
-        this.dateTime = newDateTime;
+    public void setInDateTime(Calendar newDateTime){
+        this.inDateTime = newDateTime;
     }
 
-    public void setDateTimeMillis(Long newDateTime){
-        this.dateTime.setTimeInMillis(newDateTime);
+    public void setInDateTimeMillis(Long newDateTime){
+        this.inDateTime.setTimeInMillis(newDateTime);
+    }
+
+    public void setOutDateTimeMillis(Long newDateTime){
+        this.outDateTime.setTimeInMillis(newDateTime);
     }
 
     public int getDuration(){
         return duration;
+    }
+
+    public void setOutDateTime(Calendar outDateTime) {
+        this.outDateTime = outDateTime;
+    }
+
+    public long getOutDateTimeMillis(){
+        return outDateTime.getTimeInMillis();
     }
 
     public void setDuration(int newDuration){
@@ -95,8 +109,8 @@ public class PunchEntry {
         return earnings;
     }
 
-    public void setEarnings(double newEarnigns){
-        this.earnings = newEarnigns;
+    public void setEarnings(double newEarnings){
+        this.earnings = newEarnings;
     }
 
     public int getInputType(){

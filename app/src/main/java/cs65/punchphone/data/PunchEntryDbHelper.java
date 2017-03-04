@@ -21,7 +21,8 @@ public class PunchEntryDbHelper extends SQLiteOpenHelper {
 
     public static final String KEY_ROW_ID = "id";
     public static final String KEY_INPUT_TYPE = "it";
-    public static final String KEY_DATE_TIME = "dateTime";
+    public static final String KEY_IN_DATE_TIME = "inDateTime";
+    public static final String KEY_OUT_DATE_TIME = "outDateTime";
     public static final String KEY_DURATION = "duration";
     public static final String KEY_COMPANY = "company";
     public static final String KEY_SITE = "site";
@@ -30,7 +31,8 @@ public class PunchEntryDbHelper extends SQLiteOpenHelper {
 
 
 
-    private String[] allColumns = { KEY_ROW_ID, KEY_INPUT_TYPE, KEY_DATE_TIME, KEY_DURATION, KEY_COMPANY,
+    private String[] allColumns = { KEY_ROW_ID, KEY_INPUT_TYPE,
+            KEY_IN_DATE_TIME, KEY_OUT_DATE_TIME, KEY_DURATION, KEY_COMPANY,
     KEY_SITE, KEY_NAME, KEY_EARNINGS};
 
 
@@ -58,8 +60,10 @@ public class PunchEntryDbHelper extends SQLiteOpenHelper {
             + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + KEY_INPUT_TYPE
             + " INTEGER NOT NULL, "
-            + KEY_DATE_TIME
-            + " DATETIME NOT NULL, "
+            + KEY_IN_DATE_TIME
+            + " INDATETIME NOT NULL, "
+            +KEY_OUT_DATE_TIME
+            + " OUTDATETIME NOT NULL, "
             + KEY_DURATION
             + " INTEGER NOT NULL, "
             + KEY_COMPANY
@@ -81,8 +85,9 @@ public class PunchEntryDbHelper extends SQLiteOpenHelper {
 
         value.put(KEY_INPUT_TYPE, entry.getInputType());
         Log.d("insert entry", "input type: " + entry.getInputType());
-        value.put(KEY_DATE_TIME, entry.getDateTimeMillis());
-        Log.d("insert entry", "date: " + entry.getDateTimeMillis());
+        value.put(KEY_IN_DATE_TIME, entry.getInDateTimeMillis());
+        Log.d("insert entry", "date: " + entry.getInDateTimeMillis());
+        value.put(KEY_OUT_DATE_TIME, entry.getOutDateTimeMillis());
         value.put(KEY_DURATION, entry.getDuration());
         Log.d("insert entry", "duration: " + entry.getDuration());
         value.put(KEY_COMPANY, entry.getCompany());
@@ -116,12 +121,13 @@ public class PunchEntryDbHelper extends SQLiteOpenHelper {
         PunchEntry entry = new PunchEntry();
         entry.setId(cursor.getLong(0));
         entry.setInputType(cursor.getInt(1));
-        entry.setDateTimeMillis(cursor.getLong(2));
-        Log.d("fetch time", "time: " + entry.getDateTimeMillis());
-        entry.setDuration(cursor.getInt(3));
-        entry.setCompany(cursor.getString(4));
-        entry.setSite(cursor.getString(5));
-        entry.setEarnings(cursor.getFloat(6));
+        entry.setInDateTimeMillis(cursor.getLong(2));
+        entry.setOutDateTimeMillis(cursor.getLong(3));
+        Log.d("fetch time", "time: " + entry.getInDateTimeMillis());
+        entry.setDuration(cursor.getInt(4));
+        entry.setCompany(cursor.getString(5));
+        entry.setSite(cursor.getString(6));
+        entry.setEarnings(cursor.getFloat(8));
         Log.d("fetch time", "earnings: " + entry.getEarnings());
         return entry;
     }
