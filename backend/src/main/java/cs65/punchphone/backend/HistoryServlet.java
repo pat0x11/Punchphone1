@@ -25,7 +25,6 @@ public class HistoryServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         String username = request.getParameter("username");
         String companyname = EmployerDataStore.getCompanyName(username);
-
         out.write("<html>\n" +
                 "<head>\n" +
                 "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\">\n" +
@@ -36,6 +35,10 @@ public class HistoryServlet extends HttpServlet {
                 "</style>\n" +
                 "</head>\n" +
                 "<body>\n");
+        out.write("<form name=\"userid\" action=\"history.do\" method=\"get\">\n" +
+                "User ID: <input type=\"text\" name=\"userid\">\n" +
+                "<input type=\"submit\" value=\"Search By User ID\">\n" +
+                "</form>\n");
         out.write("<table>\n" +
                 "<tr>\n" +
                 "<th>User ID</th>\n" +
@@ -46,6 +49,14 @@ public class HistoryServlet extends HttpServlet {
                 "<th>Delete</th>\n" +
                 "</tr>\n");
         ArrayList<Punch> pList = PunchDataStore.queryByCompany(companyname);
+        String userid = request.getParameter("userid");
+        if (userid != null && !userid.equals("")) {
+            for(Punch p: pList) {
+                if (!p.mUserId.equals(userid)) {
+                    pList.remove(p);
+                }
+            }
+        }
         for (Punch p: pList) {
             out.write("<tr>\n" +
                     "<td>" + p.mUserId + "</td>\n" +
