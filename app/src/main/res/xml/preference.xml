@@ -22,6 +22,7 @@
         <EditTextPreference
             android:name="@string/ui_settings_wage_name"
             android:key="@string/ui_settings_wage_key"
+            android:inputType="numberDecimal"
             android:summary="@string/ui_settings_wage_summary"
             android:title="@string/ui_settings_wage_title" />
 
