@@ -26,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
     private EarningsFragment mEarningsFragment;
     private ScheduleFragment mScheduleFragment;
 
+    //all of the employers received from front end
+    public static ArrayList<FrontEndEmployer> employers;
+
     private final Messenger mMessenger = new Messenger(new
             MessageHandler()); //The handler to get message from the service
 
@@ -49,8 +52,9 @@ public class MainActivity extends AppCompatActivity {
         mSettingsFragment = new SettingsFragment();
         mEarningsFragment = new EarningsFragment();
 
-
-
+        //initialize the array list of employers that will be filled in when the app opens
+        employers=new ArrayList<FrontEndEmployer>();
+        
         fragments = new ArrayList<Fragment>();
         fragments.add(mEntryFragment);
         fragments.add(mHistoryFragment);
