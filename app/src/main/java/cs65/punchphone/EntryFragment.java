@@ -46,7 +46,7 @@ public class EntryFragment extends Fragment {
 
     private PunchEntry punchEntry;
     private PunchEntryDbHelper punchDbHelper;
-    private final static String SERVER = "10.0.2.2";
+    private final static String SERVER = "http://10.0.2.2:8080";
 
 
 

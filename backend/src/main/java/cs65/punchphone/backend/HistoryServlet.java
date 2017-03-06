@@ -48,7 +48,8 @@ public class HistoryServlet extends HttpServlet {
                 "<th>Site</th>\n" +
                 "<th>Delete</th>\n" +
                 "</tr>\n");
-        ArrayList<Punch> pList = PunchDataStore.queryByCompany(companyname);
+//        ArrayList<Punch> pList = PunchDataStore.queryByCompany(companyname);
+        ArrayList<Punch> pList = PunchDataStore.query(null);
         String userid = request.getParameter("userid");
         if (userid != null && !userid.equals("")) {
             for(Punch p: pList) {
