@@ -44,11 +44,12 @@ public class HistoryServlet extends HttpServlet {
                 "<th>User ID</th>\n" +
                 "<th>Punch In</th>\n" +
                 "<th>Punch Out</th>\n" +
-                "<th>Latitude</th>\n" +
-                "<th>Longitude</th>\n" +
+                "<th>Company</th>\n" +
+                "<th>Site</th>\n" +
                 "<th>Delete</th>\n" +
                 "</tr>\n");
-        ArrayList<Punch> pList = PunchDataStore.queryByCompany(companyname);
+//        ArrayList<Punch> pList = PunchDataStore.queryByCompany(companyname);
+        ArrayList<Punch> pList = PunchDataStore.query(null);
         String userid = request.getParameter("userid");
         if (userid != null && !userid.equals("")) {
             for(Punch p: pList) {
@@ -62,8 +63,8 @@ public class HistoryServlet extends HttpServlet {
                     "<td>" + p.mUserId + "</td>\n" +
                     "<td>" + p.mPunchIn + "</td>\n" +
                     "<td>" + p.mPunchOut + "</td>\n" +
-                    "<td>" + p.mLatitude + "</td>\n" +
-                    "<td>" + p.mLongitude + "</td>\n" +
+                    "<td>" + p.mCompany + "</td>\n" +
+                    "<td>" + p.mSite + "</td>\n" +
                     "<td><input type=\"button\" onclick=\"location.href='/delete.do?id="+p.mPunchId+
                     "'\" value=\"Delete\"></td>\n" +
                     "</tr>\n");

@@ -32,8 +32,7 @@ public class PunchDataStore {
             entity.setProperty(Punch.FIELD_COMPANY, p.mCompany);
             entity.setProperty(Punch.FIELD_PUNCH_IN, p.mPunchIn);
             entity.setProperty(Punch.FIELD_PUNCH_OUT, p.mPunchOut);
-            entity.setProperty(Punch.FIELD_LOC_LAT, p.mLatitude);
-            entity.setProperty(Punch.FIELD_LOC_LONG, p.mLongitude);
+            entity.setProperty(Punch.FIELD_SITE, p.mSite);
             datastoreService.put(entity);
             return true;
         }
@@ -115,8 +114,7 @@ public class PunchDataStore {
                     (String) e.getProperty(Punch.FIELD_COMPANY),
                     (String) e.getProperty(Punch.FIELD_PUNCH_IN),
                     (String) e.getProperty(Punch.FIELD_PUNCH_OUT),
-                    (String) e.getProperty(Punch.FIELD_LOC_LAT),
-                    (String) e.getProperty(Punch.FIELD_LOC_LONG));
+                    (String) e.getProperty(Punch.FIELD_SITE));
         }
     }
 }

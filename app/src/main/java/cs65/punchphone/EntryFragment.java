@@ -19,8 +19,11 @@ import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import cs65.punchphone.data.PunchEntry;
 import cs65.punchphone.data.PunchEntryDbHelper;
@@ -43,6 +46,7 @@ public class EntryFragment extends Fragment {
 
     private PunchEntry punchEntry;
     private PunchEntryDbHelper punchDbHelper;
+    private final static String SERVER = "http://10.0.2.2:8080";
 
 
 
@@ -166,6 +170,7 @@ public class EntryFragment extends Fragment {
             double wage = Double.parseDouble(sWage);
             punchEntry.setEarnings(wage * duration/3600);
             Log.d("earnings", "earnings : " + punchEntry.getEarnings() + " wage " + wage);
+            new SendPunchTask().execute(punchEntry);
             new InsertPunchTask().execute(punchEntry);
         }
         else{
@@ -213,6 +218,38 @@ public class EntryFragment extends Fragment {
         protected void onPostExecute(String result) {
             Toast.makeText(getContext(), "Punch #" + result + " saved.", Toast.LENGTH_SHORT)
                     .show();
+        }
+    }
+
+    public class SendPunchTask extends AsyncTask<PunchEntry, Void, String> {
+        @Override
+        protected String doInBackground(PunchEntry... punchEntries) {
+            String retString = "";
+            Map<String, String> m = new HashMap<>();
+            PunchEntry p = punchEntries[0];
+            String name = p.getName();
+            String company = p.getCompany();
+            String site = p.getSite();
+            String punchIn = Long.toString(p.getInDateTimeMillis());
+            String punchOut = Long.toString(p.getOutDateTimeMillis());
+            m.put("name", name);
+            m.put("company", company);
+            m.put("site", site);
+            m.put("punchin", punchIn);
+            m.put("punchout", punchOut);
+            try {
+                ServerUtilities.post(SERVER+"/add.do", m);
+                retString = "Punched Out Successfully";
+            } catch (IOException e) {
+                e.printStackTrace();
+                retString = e.getMessage();
+            }
+            return retString;
+        }
+
+        @Override
+        protected void onPostExecute(String param) {
+            Toast.makeText(getContext(), param, Toast.LENGTH_LONG).show();
         }
     }
 }
