@@ -43,6 +43,7 @@ public class HistoryServlet extends HttpServlet {
                 "</form>\n");
         out.write("<table>\n" +
                 "<tr>\n" +
+                "<th>Punch ID</th>\n" +
                 "<th>User ID</th>\n" +
                 "<th>Punch In</th>\n" +
                 "<th>Punch Out</th>\n" +
@@ -50,18 +51,24 @@ public class HistoryServlet extends HttpServlet {
                 "<th>Site</th>\n" +
                 "<th>Delete</th>\n" +
                 "</tr>\n");
-//        ArrayList<Punch> pList = PunchDataStore.queryByCompany(companyname);
         ArrayList<Punch> pList = PunchDataStore.query(null);
+        ArrayList<Punch> pList1 = new ArrayList<>();
         String userid = request.getParameter("userid");
-        if (userid != null && !userid.equals("")) {
-            for(Punch p: pList) {
-                if (!p.mUserId.equals(userid)) {
-                    pList.remove(p);
+
+        for (Punch p: pList) {
+            if (userid==null || userid.equals("")) {
+                if (p.mCompany.equals(companyname)) {
+                    pList1.add(p);
+                }
+            } else {
+                if (p.mUserId.equals(userid) && p.mCompany.equals(companyname)) {
+                    pList1.add(p);
                 }
             }
         }
         for (Punch p: pList) {
             out.write("<tr>\n" +
+                    "<td>" + p.mPunchId + "</td>\n" +
                     "<td>" + p.mUserId + "</td>\n" +
                     "<td>" + p.mPunchIn + "</td>\n" +
                     "<td>" + p.mPunchOut + "</td>\n" +
