@@ -50,8 +50,8 @@ public class HistoryServlet extends HttpServlet {
                 "<th>Site</th>\n" +
                 "<th>Delete</th>\n" +
                 "</tr>\n");
-        ArrayList<Punch> pList = PunchDataStore.queryByCompany(companyname);
-//        ArrayList<Punch> pList = PunchDataStore.query(null);
+//        ArrayList<Punch> pList = PunchDataStore.queryByCompany(companyname);
+        ArrayList<Punch> pList = PunchDataStore.query(null);
         String userid = request.getParameter("userid");
         if (userid != null && !userid.equals("")) {
             for(Punch p: pList) {
@@ -67,7 +67,9 @@ public class HistoryServlet extends HttpServlet {
                     "<td>" + p.mPunchOut + "</td>\n" +
                     "<td>" + p.mCompany + "</td>\n" +
                     "<td>" + p.mSite + "</td>\n" +
-                    "<td><input type=\"button\" onclick=\"location.href='/delete.do?id="+p.mPunchId+
+                    "<td><input type=\"button\" onclick=\"location.href='/delete.do?company="+
+                    p.mCompany+"&userid="+p.mUserId+"&punchout="+p.mPunchOut+"&username="+username+
+                    "&userid1="+userid+
                     "'\" value=\"Delete\"></td>\n" +
                     "</tr>\n");
         }

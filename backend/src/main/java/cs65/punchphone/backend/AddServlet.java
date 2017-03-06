@@ -24,7 +24,7 @@ public class AddServlet extends HttpServlet {
         String punchIn = request.getParameter("punchin");
         String punchOut = request.getParameter("punchout");
 
-        Punch p = new Punch("0", userid, company, punchIn, punchOut, site);
+        Punch p = new Punch(userid, company, punchIn, punchOut, site);
         PunchDataStore.add(p);
         response.sendRedirect("/history.do");
     }
