@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/mainTab"
+            android:title="@string/main"
+            />
+        <item
+            android:id="@+id/scheduleTab"
+            android:title="@string/schedule"
+            />
+        <item
+            android:id="@+id/historyTab"
+            android:title="@string/history"
+            />
+        <item
+            android:id="@+id/earningTab"
+            android:title="@string/earnings"
+            />
+    </group>
+</menu>
