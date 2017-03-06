@@ -15,25 +15,22 @@ public class Punch {
     public static final String FIELD_COMPANY = "company";
     public static final String FIELD_PUNCH_IN = "id";
     public static final String FIELD_PUNCH_OUT = "id";
-    public static final String FIELD_LOC_LAT = "lat";
-    public static final String FIELD_LOC_LONG = "long";
+    public static final String FIELD_SITE = "site";
 
     public String mPunchId;
     public String mUserId;
     public String mCompany;
     public String mPunchIn;
     public String mPunchOut;
-    public String mLatitude;
-    public String mLongitude;
+    public String mSite;
 
     public Punch(String punchid, String userid, String company,  String punchIn, String punchOut,
-                 String latitude, String longitude) {
+                 String site) {
         mPunchId = punchid;
         mUserId = userid;
         mCompany = company;
         mPunchIn = punchIn;
         mPunchOut = punchOut;
-        mLatitude = latitude;
-        mLongitude = longitude;
+        mSite = site;
     }
 }
