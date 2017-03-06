@@ -3,6 +3,7 @@ package cs65.punchphone.backend;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -67,11 +68,28 @@ public class HistoryServlet extends HttpServlet {
             }
         }
         for (Punch p: pList) {
+            String calin;
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTimeInMillis(Long.valueOf(p.mPunchIn));
+            String month = Integer.toString(calendar.get(Calendar.MONTH) + 1);
+            String day = Integer.toString(calendar.get(Calendar.DAY_OF_MONTH));
+            String year = Integer.toString(calendar.get(Calendar.YEAR));
+            String hour = Integer.toString(calendar.get(Calendar.HOUR_OF_DAY));
+            String minute = Integer.toString(calendar.get(Calendar.MINUTE));
+            calin = month + "/" + day + "/" + year + " " + hour + ":" + minute;
+            String calout;
+            calendar.setTimeInMillis(Long.valueOf(p.mPunchOut));
+            month = Integer.toString(calendar.get(Calendar.MONTH) + 1);
+            day = Integer.toString(calendar.get(Calendar.DAY_OF_MONTH));
+            year = Integer.toString(calendar.get(Calendar.YEAR));
+            hour = Integer.toString(calendar.get(Calendar.HOUR_OF_DAY));
+            minute = Integer.toString(calendar.get(Calendar.MINUTE));
+            calout = month + "/" + day + "/" + year + " " + hour + ":" + minute;
             out.write("<tr>\n" +
                     "<td>" + p.mPunchId + "</td>\n" +
                     "<td>" + p.mUserId + "</td>\n" +
-                    "<td>" + p.mPunchIn + "</td>\n" +
-                    "<td>" + p.mPunchOut + "</td>\n" +
+                    "<td>" + calin + "</td>\n" +
+                    "<td>" + calout + "</td>\n" +
                     "<td>" + p.mCompany + "</td>\n" +
                     "<td>" + p.mSite + "</td>\n" +
                     "<td><input type=\"button\" onclick=\"location.href='/delete.do?punchid="
