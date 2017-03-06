@@ -53,7 +53,7 @@ public class EarningsFragment extends Fragment {
     }
 
     public void drawChart() {
-        Log.d("Graphing", points[0].toString());
+//        Log.d("Graphing", points[0].toString());
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
         graphView.addSeries(series);
