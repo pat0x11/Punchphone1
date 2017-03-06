@@ -53,6 +53,7 @@
         <servlet-name>settings</servlet-name>
         <url-pattern>/settings.do</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>setup</servlet-name>
         <servlet-class>cs65.punchphone.backend.SetupServlet</servlet-class>
@@ -61,6 +62,7 @@
         <servlet-name>setup</servlet-name>
         <url-pattern>/setup.do</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>update</servlet-name>
         <servlet-class>cs65.punchphone.backend.updateInformation</servlet-class>
@@ -69,6 +71,7 @@
         <servlet-name>update</servlet-name>
         <url-pattern>/update.do</url-pattern>
     </servlet-mapping>
+
     <servlet>
         <servlet-name>connect</servlet-name>
         <servlet-class>cs65.punchphone.backend.appOpenedServlet</servlet-class>
@@ -76,5 +79,14 @@
     <servlet-mapping>
     <servlet-name>connect</servlet-name>
     <url-pattern>/connect.do</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>add</servlet-name>
+        <servlet-class>cs65.punchphone.backend.AddServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>add</servlet-name>
+        <url-pattern>/add.do</url-pattern>
     </servlet-mapping>
 </web-app>
