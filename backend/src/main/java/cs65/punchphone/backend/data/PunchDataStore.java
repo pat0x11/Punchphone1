@@ -8,6 +8,7 @@ import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.Filter;
+import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Transaction;
 
@@ -27,7 +28,8 @@ public class PunchDataStore {
         if (getPunchById(p.mUserId, null) != null) {
             return false;
         } else {
-            Entity entity = new Entity(Punch.PUNCH_ENTITY_NAME, getKey());
+            Entity entity = new Entity(Punch.PUNCH_ENTITY_NAME, p.mPunchId, getKey());
+            entity.setProperty(Punch.FIELD_PUNCHID, p.mPunchId);
             entity.setProperty(Punch.FIELD_USERID, p.mUserId);
             entity.setProperty(Punch.FIELD_COMPANY, p.mCompany);
             entity.setProperty(Punch.FIELD_PUNCH_IN, p.mPunchIn);
@@ -39,12 +41,8 @@ public class PunchDataStore {
     }
 
     //delete punch from datastore
-    public static boolean delete(String company, String userid, String punchout) {
-        Filter f1 = new FilterPredicate(Punch.FIELD_COMPANY, Query.FilterOperator.EQUAL, company);
-        Filter f2 = new FilterPredicate(Punch.FIELD_USERID, Query.FilterOperator.EQUAL, userid);
-        Filter f3 = new FilterPredicate(Punch.FIELD_PUNCH_OUT, Query.FilterOperator.EQUAL, punchout);
-        Filter f = new Query.CompositeFilter(Query.CompositeFilterOperator.AND, Arrays.asList(
-                f1, f2, f3));
+    public static boolean delete(String punchid) {
+        Filter f = new FilterPredicate(Punch.FIELD_PUNCHID, FilterOperator.EQUAL, punchid);
         Query q = new Query(Punch.PUNCH_ENTITY_NAME);
         q.setFilter(f);
         PreparedQuery pq = datastoreService.prepare(q);
@@ -63,24 +61,6 @@ public class PunchDataStore {
         ArrayList<Punch> pList = new ArrayList<>();
         Query q = new Query(Punch.PUNCH_ENTITY_NAME);
         q.setFilter(null);
-        q.setAncestor(getKey());
-        PreparedQuery pq = datastoreService.prepare(q);
-        Iterable<Entity> i = pq.asIterable();
-        for (Entity entity : i) {
-            Punch p = getPunchFromEntity(entity);
-            if (p != null) {
-                pList.add(p);
-            }
-        }
-        return pList;
-    }
-
-    public static ArrayList<Punch> queryByCompany(String company) {
-        ArrayList<Punch> pList = new ArrayList<>();
-        Query q = new Query(Punch.PUNCH_ENTITY_NAME);
-        Filter filter = new FilterPredicate(Punch.FIELD_COMPANY, Query.FilterOperator.EQUAL,
-                company);
-        q.setFilter(filter);
         q.setAncestor(getKey());
         PreparedQuery pq = datastoreService.prepare(q);
         Iterable<Entity> i = pq.asIterable();
@@ -112,6 +92,7 @@ public class PunchDataStore {
             return null;
         } else {
             return new Punch(
+                    (String) e.getProperty(Punch.FIELD_PUNCHID),
                     (String) e.getProperty(Punch.FIELD_USERID),
                     (String) e.getProperty(Punch.FIELD_COMPANY),
                     (String) e.getProperty(Punch.FIELD_PUNCH_IN),
