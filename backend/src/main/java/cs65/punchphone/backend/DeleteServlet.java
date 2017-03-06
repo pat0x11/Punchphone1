@@ -17,12 +17,10 @@ public class DeleteServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        String company = request.getParameter("company");
-        String userid = request.getParameter("userid");
-        String punchout = request.getParameter("punchout");
+        String punchid = request.getParameter("punchid");
         String userid1 = request.getParameter("userid1");
         String username = request.getParameter("username");
-        PunchDataStore.delete(company, userid, punchout);
+        PunchDataStore.delete(punchid);
         response.sendRedirect("/history.do?username="+username+"&userid="+userid1);
     }
 
