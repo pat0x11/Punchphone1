@@ -67,9 +67,8 @@ public class HistoryServlet extends HttpServlet {
                     "<td>" + p.mPunchOut + "</td>\n" +
                     "<td>" + p.mCompany + "</td>\n" +
                     "<td>" + p.mSite + "</td>\n" +
-                    "<td><input type=\"button\" onclick=\"location.href='/delete.do?company="+
-                    p.mCompany+"&userid="+p.mUserId+"&punchout="+p.mPunchOut+"&username="+username+
-                    "&userid1="+userid+
+                    "<td><input type=\"button\" onclick=\"location.href='/delete.do?punchid="
+                    +p.mPunchId+"&username="+username+ "&userid1="+userid+
                     "'\" value=\"Delete\"></td>\n" +
                     "</tr>\n");
         }
