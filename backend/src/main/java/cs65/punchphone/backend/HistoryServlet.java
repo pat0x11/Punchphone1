@@ -25,7 +25,7 @@ public class HistoryServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         String username = request.getParameter("username");
-        String currentPassword=EmployerDataStore.getEmployerByUsername(username).mPassword;
+
         String companyname = EmployerDataStore.getCompanyName(username);
 //        request.setAttribute("username", username);
         out.write("<html>\n" +
@@ -51,7 +51,7 @@ public class HistoryServlet extends HttpServlet {
                 "<th>Punch Out</th>\n" +
                 "<th>Company</th>\n" +
                 "<th>Site</th>\n" +
-                "<th>Delete</th>\n" +
+                //"<th>Delete</th>\n" +
                 "</tr>\n");
         ArrayList<Punch> pList = PunchDataStore.query(null);
         ArrayList<Punch> pList1 = new ArrayList<>();
@@ -68,7 +68,7 @@ public class HistoryServlet extends HttpServlet {
                 }
             }
         }
-        for (Punch p: pList) {
+        for (Punch p: pList1) {
             String calin;
             Calendar calendar = Calendar.getInstance();
             calendar.setTimeInMillis(Long.valueOf(p.mPunchIn));
@@ -93,15 +93,13 @@ public class HistoryServlet extends HttpServlet {
                     "<td>" + calout + "</td>\n" +
                     "<td>" + p.mCompany + "</td>\n" +
                     "<td>" + p.mSite + "</td>\n" +
-                    "<td><input type=\"button\" onclick=\"location.href='/delete.do?punchid="
-                    +p.mPunchId+"&username="+username+ "&userid1="+userid+
-                    "'\" value=\"Delete\"></td>\n" +
+                    //"<td><input type=\"button\" onclick=\"location.href='/delete.do?punchid="
+                    //+p.mPunchId+"&username="+username+ "&userid1="+userid+
+                    //"'\" value=\"Delete\"></td>\n" +
                     "</tr>\n");
         }
         out.write("</table>\n");
         out.write("</body><br>" +
-                "<a href=\"welcome.do?employername="+username+"&password="
-                +currentPassword+"\">Back to Welcome Page</a>" +
                 "</html>");
     }
 

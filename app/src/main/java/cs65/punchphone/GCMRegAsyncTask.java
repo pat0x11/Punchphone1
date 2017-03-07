@@ -37,14 +37,14 @@ public class GCMRegAsyncTask extends AsyncTask<Void, Void, String> {
                             new AndroidJsonFactory(), null)
                             // Need setRootUrl and setGoogleClientRequestInitializer only for local testing,
                             // otherwise they can be skipped
-                            .setRootUrl("http://10.0.2.2:8080/_ah/api/")
-                            .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
-                                @Override
-                                public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest)
-                                        throws IOException {
-                                    abstractGoogleClientRequest.setDisableGZipContent(true);
-                                }
-                            });
+                            .setRootUrl(Globals.backendURL+"/_ah/api/");
+//                            .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
+//                                @Override
+//                                public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest)
+//                                        throws IOException {
+//                                    abstractGoogleClientRequest.setDisableGZipContent(true);
+//                                }
+//                            });
             // end of optional local run code
             registrationService = builder.build();
         }

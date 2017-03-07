@@ -1,9 +1,11 @@
 package cs65.punchphone;
 
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -19,6 +21,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,12 +55,25 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
     public static Location currentLocation;
     public static FrontEndEmployer frontEndEmployer;
     private ServiceConnection serviceConnection=this;
+    public BroadcastReceiver mBr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         checkPermissions();
+
+        //setup and register the broadcast receiver
+        mBr=new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                EntryFragment.setupSpinner();
+            }
+        };
+        IntentFilter intentFilter=new IntentFilter();
+        intentFilter.addAction("Notify Service Action");
+        this.registerReceiver(mBr,intentFilter);
+
         slidingTabLayout = (SlidingTabLayout) findViewById(R.id.tab);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
 
@@ -67,6 +83,9 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         mScheduleFragment = new ScheduleFragment();
         mSettingsFragment = new SettingsFragment();
         mEarningsFragment = new EarningsFragment();
+
+
+        View view = mEntryFragment.getView();
 
         //initialize the array list of employers that will be filled in when the app opens
         employers = new ArrayList<FrontEndEmployer>();
@@ -117,6 +136,8 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
                     jobsiteCenter.setLongitude(frontEndEmployer.getLong());
                     if (jobsiteCenter.distanceTo(currentLocation) > frontEndEmployer.getRadius()) {
                         mEntryFragment.handlePunchOut(null);
+                        Toast.makeText(getApplicationContext(),
+                                "Punched Out: You left the work location", Toast.LENGTH_SHORT).show();
                     }
                 }
             } else {
@@ -124,7 +145,17 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
             }
         }
     }
-
+//
+//    @Override
+//    public void onDestroy(){
+//        //try to unregister the location service and the broadcast receiver
+//        if (mBr!=null){
+//            unregisterReceiver(mBr);
+//        }
+//        unbindService(serviceConnection);
+//        super.onDestroy();
+//
+//    }
     public void startService() {
         Intent serviceIntent = new Intent(this, LocationService.class);
         startService(serviceIntent);
