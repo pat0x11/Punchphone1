@@ -95,6 +95,11 @@ public class IntentServiceGCM extends IntentService {
         }
         //end the intent
         ExtendedBroadcastReceiver.completeWakefulIntent(intent);
+
+        Intent i=new Intent();
+        i.setAction("Notify Service Action");
+        getApplicationContext().sendBroadcast(i);
+
     }
 
 }

@@ -8,5 +8,5 @@ package cs65.punchphone;
 public class Globals {
 
     //url of the backend
-    public static String backendURL="http://10.0.2.2:8080/";
+    public static String backendURL="https://turnkey-conduit-160000.appspot.com/";
 }

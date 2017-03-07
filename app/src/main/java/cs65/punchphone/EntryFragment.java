@@ -1,6 +1,9 @@
 package cs65.punchphone;
 
 import android.app.Fragment;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.util.Calendar;
 import android.location.Location;
@@ -54,16 +57,18 @@ public class EntryFragment extends Fragment {
 
     private PunchEntry punchEntry;
     private PunchEntryDbHelper punchDbHelper;
-    private final static String SERVER = "http://10.0.2.2:8080";
+    public static Context mContext;
+    private final static String SERVER = Globals.backendURL;
 
+    public static View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        Log.d("Entry", "on create view called");
-        View view = inflater.inflate(R.layout.fragment_entry, container, false);
 
+        view = inflater.inflate(R.layout.fragment_entry, container, false);
 
+        mContext = getActivity();
         //setup the date and time
         timeText = (TextClock) view.findViewById(R.id.timeClock);
         dateText = (TextView) view.findViewById(R.id.dateEditText);
@@ -95,14 +100,14 @@ public class EntryFragment extends Fragment {
         punchEntry = new PunchEntry();
         punchDbHelper = new PunchEntryDbHelper(getActivity());
 
-        setupSpinner(view);
+        setupSpinner();
 
         return view;
     }
 
-    public void setupSpinner(View view) {
+    public static void setupSpinner() {
         Log.d("EmployerssetupSpinner: ",Integer.toString(MainActivity.employers.size()));
-        employerAdapter = new EmployerAdapter(getActivity(), MainActivity.employers);
+        employerAdapter = new EmployerAdapter(mContext, MainActivity.employers);
         spinner = (Spinner) view.findViewById(R.id.spinner);
 
         employerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
@@ -155,7 +160,7 @@ public class EntryFragment extends Fragment {
             employerLocation.setLatitude(employer.getLat());
             employerLocation.setLongitude(employer.getLong());
 
-            if (MainActivity.currentLocation == null){// && MainActivity.currentLocation.distanceTo(employerLocation) < employer.getRadius()) {
+            if (MainActivity.currentLocation != null){// && MainActivity.currentLocation.distanceTo(employerLocation) < employer.getRadius()) {
                 //disable the punch in button
                 punchIn.setEnabled(false);
                 //enable the punch out button
@@ -302,5 +307,6 @@ public class EntryFragment extends Fragment {
             Toast.makeText(getContext(), param, Toast.LENGTH_LONG).show();
         }
     }
+
 
 }

@@ -55,10 +55,12 @@ public class EarningsFragment extends Fragment {
     public void drawChart(String[] labels) {
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
-        StaticLabelsFormatter staticLabelsFormatter = new
-                StaticLabelsFormatter(graphView);
-        staticLabelsFormatter.setHorizontalLabels(labels);
-        graphView.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+        if(labels.length >2) {
+            StaticLabelsFormatter staticLabelsFormatter = new
+                    StaticLabelsFormatter(graphView);
+            staticLabelsFormatter.setHorizontalLabels(labels);
+            graphView.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
+        }
         graphView.addSeries(series);
         graphView.getViewport().setScalable(true);
         graphView.setTitle("Earnings by Date");

@@ -15,7 +15,7 @@
         android:name="cs65.punchphone.permission.C2D_MESSAGE"
         android:protectionLevel="signature" />
 
-    <uses-permission android:name="cs65.punchphone.permission.C2D_MESSAGE" />
+    <uses-permission android:name="com.google.android.gcm.demo.app.permission.C2D_MESSAGE" />
 
     <application
         android:allowBackup="true"
