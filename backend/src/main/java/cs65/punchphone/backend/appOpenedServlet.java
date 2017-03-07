@@ -27,7 +27,7 @@ public class appOpenedServlet extends HttpServlet {
     //the get method sends a message containing all known employers, their locations, and the radius
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         mLogger.log(Level.INFO,"Coming to appOpenedServlet");
-        
+
 
         //at this point, we know that the user wants every thing from the employer datastore
         //get the array list of employer information from the datastore
@@ -48,7 +48,7 @@ public class appOpenedServlet extends HttpServlet {
         //use the google cloud messaging to alert the local database on the phone that something was deleted
         //alert the user on the device that the entries were updated
         MessagingEndpoint msg=new MessagingEndpoint();
-        msg.sendMessage("allEmployers:"+jsonString);
+        msg.sendMessage(jsonString);
     }
 
 

@@ -16,6 +16,7 @@ import android.os.Messenger;
 import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.util.Log;
 
 
 /**
@@ -72,6 +73,7 @@ public class LocationService extends Service {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest
                 .permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             //Set up the listener to gather location data
+            Log.d("Location Service","Permission Granted");
             LocationListener locationListener = new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location) {
@@ -110,6 +112,9 @@ public class LocationService extends Service {
             //How often is the shortest to grab location updates
             locationManager.requestLocationUpdates(locationProvider, 100, 1,
                     locationListener);
+        }
+        else{
+            Log.d("Location Service","Permission Denied");
         }
         return START_NOT_STICKY;
     }
