@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 /**
  * Created by CarterJacobsen on 2/26/17.
+ * Modeled on my runs dialog handler
  */
 
 public class DialogHandler extends DialogFragment {
@@ -29,7 +30,8 @@ public class DialogHandler extends DialogFragment {
     }
 
     public Dialog onCreateDialog(Bundle savedState){
-        final String day = getArguments().getString(DAY_KEY);
+        final String day = getArguments().getString(DAY_KEY); //The day being
+        // changed
         final int id = getArguments().getInt(ID_KEY);
 
         final Activity parent = getActivity();
@@ -39,15 +41,19 @@ public class DialogHandler extends DialogFragment {
         final EditText entry = new EditText(parent);
         entry.setInputType(InputType.TYPE_CLASS_NUMBER);
         builder.setView(entry);
+
+        //If the user selects okay
         builder.setPositiveButton(R.string.dialog_ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String current = entry.getText().toString();
                 if(current.equals(""))current= "0";
-                // TODO: fix this for fragment
+
                 ((MainActivity) getActivity()).printHours(id, Double.parseDouble(current));
             }
         });
+
+        //If the user chooses to cancel
         builder.setNegativeButton(R.string.dialog_cancel, new DialogInterface
                 .OnClickListener(){
             @Override
