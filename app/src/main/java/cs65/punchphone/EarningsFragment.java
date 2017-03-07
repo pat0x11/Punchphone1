@@ -7,14 +7,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TableLayout;
 
 import com.jjoe64.graphview.GraphView;
 import com.jjoe64.graphview.GridLabelRenderer;
+import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import cs65.punchphone.data.PunchEntry;
 import cs65.punchphone.data.PunchEntryDbHelper;
@@ -25,7 +26,6 @@ public class EarningsFragment extends Fragment {
 
     GraphView graphView;
     Context context;
-    TableLayout tableLayout;
     private ArrayList<PunchEntry> values;
     private DataPoint[] points;
 
@@ -41,33 +41,41 @@ public class EarningsFragment extends Fragment {
         values = punchEntryDbHelper.fetchEntries();
         Log.d("Earnings", "Number of values " + values.size());
         points = new DataPoint[values.size()];
-
+        String[] labels = new String[values.size()];
         for (int i = 0; i < values.size(); i++) {
-            points[i] = new DataPoint(i + 1, values.get(i).getEarnings
-                    ());
-
+            points[i] = new DataPoint(i + 1, values.get(i).getEarnings());
+            labels[i] = dateTimeToString(values.get(i).getInDateTimeMillis());
+            Log.d("day", "" +values.get(i).getInDateTimeMillis());
         }
 
-        drawChart();
+        drawChart(labels);
         return view;
     }
 
-    public void drawChart() {
-//        Log.d("Graphing", points[0].toString());
+    public void drawChart(String[] labels) {
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
+        StaticLabelsFormatter staticLabelsFormatter = new
+                StaticLabelsFormatter(graphView);
+        staticLabelsFormatter.setHorizontalLabels(labels);
+        graphView.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
         graphView.addSeries(series);
-        graphView.getViewport().setXAxisBoundsManual(true);
-        graphView.getViewport().setMaxX(4);
-        graphView.getViewport().setMinX(0);
         graphView.getViewport().setScalable(true);
         graphView.setTitle("Earnings by Date");
         graphView.setTitleTextSize(100);
-        graphView.setHorizontalScrollBarEnabled(true);
         GridLabelRenderer labelRenderer = graphView.getGridLabelRenderer();
         labelRenderer.setHorizontalAxisTitle("Dates");
         labelRenderer.setVerticalAxisTitle("Earnings in $");
     }
 
+    public String dateTimeToString(Long time){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        String result = "";
+        result += (calendar.get(Calendar.MONTH)+1) +  "-" + calendar.get
+                (Calendar
+                .DAY_OF_MONTH);
+        return result;
+    }
 
 }

@@ -1,8 +1,7 @@
 package cs65.punchphone;
 
-import android.os.Bundle;
 import android.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +13,13 @@ import android.widget.TextView;
 //Carter Jacobsen 2/27/17
 public class ScheduleFragment extends Fragment {
 
-    public static final int MONDAY_ID = 0;
-    public static final int TUESDAY_ID = 1;
-    public static final int WEDNESDAY_ID = 2;
-    public static final int THURSDAY_ID = 3;
-    public static final int FRIDAY_ID = 4;
-    public static final int SATURDAY_ID = 5;
-    public static final int SUNDAY_ID = 6;
+    public final int MONDAY_ID = 0;
+    public final int TUESDAY_ID = 1;
+    public final int WEDNESDAY_ID = 2;
+    public final int THURSDAY_ID = 3;
+    public final int FRIDAY_ID = 4;
+    public final int SATURDAY_ID = 5;
+    public final int SUNDAY_ID = 6;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -29,9 +28,9 @@ public class ScheduleFragment extends Fragment {
     }
 
 
-    private void changeHours(int id, String day){
+    public void changeHours(int id, String day){
         DialogHandler handler = DialogHandler.newInstance(id, day);
-        //handler.show(getFragmentManager(), "punchphone"); unsure how to do this
+        handler.show(getFragmentManager(), "punchphone");
     }
 
     public void printHours(int id, double hours){
@@ -63,42 +62,23 @@ public class ScheduleFragment extends Fragment {
 
         Double currentTotal = totalHours + hours;
         String message = Double.toString(currentTotal);
-        if(currentTotal > 40){
+
+        int employerNormalHours = MainActivity.frontEndEmployer.getNormalHrs()*7;
+        int employerOvertimeHours = MainActivity.frontEndEmployer
+                .getOvertimeHrs()*7;
+        if(currentTotal > employerNormalHours){
             message = Double.toString
-                    (currentTotal) + " You are receiving " + (currentTotal-40) +
+                    (currentTotal) + " You are receiving " +
+                    (currentTotal-employerNormalHours) +
                     " overtime hour";
-            if(!((currentTotal-40) == 1)) message += "s";
+            if(!((currentTotal-employerNormalHours) == 1)) message += "s";
+        } if(currentTotal >(employerNormalHours+employerOvertimeHours)){
+            message += ", not getting paid for " +
+                    (currentTotal-employerNormalHours-employerOvertimeHours);
         }
         total.setText(message);
         if(view != null) view.setText(Double.toString(hours));
 
 
-    }
-
-    public void mondayChange(View view){
-        changeHours(MONDAY_ID, "Monday");
-    }
-
-    public void tuesdayChange(View view){
-        changeHours(TUESDAY_ID, "Tuesday");
-    }
-
-    public void wednesdayChange(View view){
-        changeHours(WEDNESDAY_ID, "Wednesday");
-    }
-
-    public void thursdayChange(View view){
-        changeHours(THURSDAY_ID, "Thursday");
-    }
-
-    public void fridayChange(View view){
-        changeHours(FRIDAY_ID, "Friday");
-    }
-
-    public void saturdayChange(View view){
-        changeHours(SATURDAY_ID, "Saturday");
-    }
-    public void sundayChange(View view){
-        changeHours(SUNDAY_ID, "Sunday");
     }
 }

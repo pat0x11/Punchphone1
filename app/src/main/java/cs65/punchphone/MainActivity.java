@@ -1,6 +1,5 @@
 package cs65.punchphone;
 
-import android.*;
 import android.app.Fragment;
 import android.content.ComponentName;
 import android.content.Context;
@@ -19,6 +18,7 @@ import android.os.RemoteException;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -90,12 +90,12 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         longitude = 0;
         radius = 0;
         registered = false;
-        frontEndEmployer =null;
-//        try {
-//            frontEndEmployer = new FrontEndEmployer("Dartmouth", "5545 Ne Penrith Rd", "Seattle", "WA", "98105", "399", "10", "6", getApplicationContext());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        //frontEndEmployer =null;
+        try {
+            frontEndEmployer = new FrontEndEmployer("Dartmouth", "5545 Ne Penrith Rd", "Seattle", "WA", "98105", "399", "10", "6", getApplicationContext());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         new GCMRegAsyncTask(getApplicationContext()).execute();
         getData();
@@ -195,5 +195,39 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
             requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
                     android.Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
         }
+    }
+
+    public void mondayChange(View view){
+        mScheduleFragment.changeHours(mScheduleFragment.MONDAY_ID, "Monday");
+    }
+
+    public void tuesdayChange(View view){
+        mScheduleFragment.changeHours(mScheduleFragment.TUESDAY_ID, "Tuesday");
+    }
+
+    public void wednesdayChange(View view){
+        mScheduleFragment.changeHours(mScheduleFragment.WEDNESDAY_ID,
+                "Wednesday");
+    }
+
+    public void thursdayChange(View view){
+        mScheduleFragment.changeHours(mScheduleFragment.THURSDAY_ID,
+                "Thursday");
+    }
+
+    public void fridayChange(View view){
+        mScheduleFragment.changeHours(mScheduleFragment.FRIDAY_ID, "Friday");
+    }
+
+    public void saturdayChange(View view){
+        mScheduleFragment.changeHours(mScheduleFragment.SATURDAY_ID,
+                "Saturday");
+    }
+    public void sundayChange(View view){
+        mScheduleFragment.changeHours(mScheduleFragment.SUNDAY_ID, "Sunday");
+    }
+
+    public void printHours(int id, double value){
+        mScheduleFragment.printHours(id, value);
     }
 }

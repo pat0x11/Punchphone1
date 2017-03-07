@@ -60,7 +60,7 @@ public class EntryFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        Log.d("Entry", "on create view called");
         View view = inflater.inflate(R.layout.fragment_entry, container, false);
 
 
@@ -97,7 +97,6 @@ public class EntryFragment extends Fragment {
 
         employerAdapter = new EmployerAdapter(getActivity(), MainActivity.employers);
         spinner = (Spinner) view.findViewById(R.id.spinner);
-
 
         employerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinner.setAdapter(employerAdapter);
