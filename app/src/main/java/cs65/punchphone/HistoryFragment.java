@@ -13,21 +13,27 @@ import java.util.List;
 import cs65.punchphone.data.PunchEntry;
 import cs65.punchphone.data.PunchEntryDbHelper;
 
+
 public class HistoryFragment extends Fragment {
 
-    List <PunchEntry> values;
-    private PunchEntryDbHelper punchEntryDbHelper;
-    private ListView history;
-    private View view;
-    public Button update;
+    List <PunchEntry> values; //Values to display
+    private PunchEntryDbHelper punchEntryDbHelper; //helper to access database
+    private ListView history; //The list view
+    private View view; // view being used
+    public Button update; //Button to update the list
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         view = inflater.inflate(R.layout.fragment_history, container, false);
         punchEntryDbHelper = new PunchEntryDbHelper(getActivity());
+
+        //Get the entries
         values = punchEntryDbHelper.fetchEntries();
+
+        //Setup the list view and adapter for it
         history = (ListView) view.findViewById(R.id.list_entries);
         history.setAdapter(new PunchListAdapter(getActivity().getApplicationContext(), values));
 
@@ -41,6 +47,8 @@ public class HistoryFragment extends Fragment {
         return view;
     }
 
+    //Handle update gets all the new entries from the database and puts them
+    // in the listview
     public void handleUpdate(View v){
         values = punchEntryDbHelper.fetchEntries();
         history = (ListView) view.findViewById(R.id.list_entries);
