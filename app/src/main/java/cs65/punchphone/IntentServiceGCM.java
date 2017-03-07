@@ -81,14 +81,13 @@ public class IntentServiceGCM extends IntentService {
                             //check to make sure that there are no errors
                             if (toAddEmployer != null) {
                                 //add it to a list of these objects
-                                //ADD HERE
                                 MainActivity.employers.add(toAddEmployer);
                             }
 
                         }
 
-                        Log.d("Intent", "Getting data");
-                        Log.d("SizeInIntent",Integer.toString(MainActivity.employers.size()));
+                        //Log.d("Intent", "Getting data");
+                        //Log.d("SizeInIntent",Integer.toString(MainActivity.employers.size()));
                     }
                 }
             }
@@ -96,6 +95,7 @@ public class IntentServiceGCM extends IntentService {
         //end the intent
         ExtendedBroadcastReceiver.completeWakefulIntent(intent);
 
+        //Let the broadcast receiver know that data was just received
         Intent i=new Intent();
         i.setAction("Notify Service Action");
         getApplicationContext().sendBroadcast(i);

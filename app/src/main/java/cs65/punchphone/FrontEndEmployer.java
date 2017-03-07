@@ -64,6 +64,7 @@ public class FrontEndEmployer {
 
     }
 
+    //Getters for all the data saved in the object
     public String getName() {
         return mCompany;
     }

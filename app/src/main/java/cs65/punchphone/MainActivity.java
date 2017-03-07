@@ -48,14 +48,12 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
     private final Messenger mMessenger = new Messenger(new
             MessageHandler()); //The handler to get message from the service
 
-    public static boolean dataReceived;
-    public static double latitude;
-    public static double longitude;
-    public static int radius;
-    public static Location currentLocation;
-    public static FrontEndEmployer frontEndEmployer;
-    private ServiceConnection serviceConnection=this;
-    public BroadcastReceiver mBr;
+    public static boolean dataReceived; //Whether there is company data
+    public static Location currentLocation; //Current location of device
+    public static FrontEndEmployer frontEndEmployer; //the current company
+    private ServiceConnection serviceConnection=this; //Connection to
+    // intentservice
+    public BroadcastReceiver mBr; //The broadcast receiver
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,16 +103,8 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         slidingTabLayout.setViewPager(viewPager);
 
         dataReceived = false;
-        latitude = 0;
-        longitude = 0;
-        radius = 0;
         registered = false;
-        //frontEndEmployer =null;
-        try {
-            frontEndEmployer = new FrontEndEmployer("Dartmouth", "5545 Ne Penrith Rd", "Seattle", "WA", "98105", "399", "10", "6", getApplicationContext());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        frontEndEmployer =null;
 
         new GCMRegAsyncTask(getApplicationContext()).execute();
         getData();
@@ -156,6 +146,8 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
 //        super.onDestroy();
 //
 //    }
+
+    //Start the location service
     public void startService() {
         Intent serviceIntent = new Intent(this, LocationService.class);
         startService(serviceIntent);
@@ -163,11 +155,14 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
 
     }
 
+    //Start the binding to the locaiton service
     public void doBindService(){
         bindService(new Intent(this,LocationService.class),serviceConnection, Context.BIND_AUTO_CREATE);
         bound=true;
 
     }
+
+    //Register the activity with the service
     @Override
     public void onServiceConnected(ComponentName name, IBinder service){
         Messenger messenger=new Messenger(service);
@@ -228,6 +223,8 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         }
     }
 
+    //Next bunch of methods allow the user to change the hours worked on each
+    // day
     public void mondayChange(View view){
         mScheduleFragment.changeHours(mScheduleFragment.MONDAY_ID, "Monday");
     }

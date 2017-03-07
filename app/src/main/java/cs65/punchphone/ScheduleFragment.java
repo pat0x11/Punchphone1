@@ -11,8 +11,11 @@ import android.widget.TextView;
 
 
 //Carter Jacobsen 2/27/17
+//The fragment to allow the user to check how their schedule matches with the
+// employers hours guidelines
 public class ScheduleFragment extends Fragment {
 
+    //Ids for the days of the week
     public final int MONDAY_ID = 0;
     public final int TUESDAY_ID = 1;
     public final int WEDNESDAY_ID = 2;
@@ -27,13 +30,17 @@ public class ScheduleFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_schedule, container, false);
     }
 
-
+    //Changes the hours in one of the days of the week's view
     public void changeHours(int id, String day){
         DialogHandler handler = DialogHandler.newInstance(id, day);
         handler.show(getFragmentManager(), "punchphone");
     }
 
+    //Puts the actual hours value in the text view and calculates how the
+    // relates to the total and employers set hours
     public void printHours(int id, double hours){
+
+        //Find the proper view
         TextView view = null;
         if(id == MONDAY_ID){
             view = (TextView) getView().findViewById(R.id.monday_hours);
@@ -44,13 +51,18 @@ public class ScheduleFragment extends Fragment {
         else if(id == SATURDAY_ID) view = (TextView) getView().findViewById(R.id.saturday_hours);
         else if(id == SUNDAY_ID) view = (TextView) getView().findViewById(R.id.sunday_hours);
 
+        //Get the total text view
         TextView total = (TextView) getView().findViewById(R.id.total_hours);
         Double totalHours = 0.0;
+
+        //Get the total hours currently
         if(!total.getText().toString().equals("")){
             String stringHours = total.getText().toString();
             String[] hourArray = stringHours.split(" ");
             totalHours += Double.parseDouble(hourArray[0]);
         }
+
+        //
         if(view != null && !view.getText().toString().equals("") && !total
                 .getText().toString().equals("")) {
             String currentHours = view.getText().toString();
