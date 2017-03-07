@@ -60,13 +60,14 @@ public class EarningsFragment extends Fragment {
     }
 
     //Draw the graph
-    //Labling helped by http://stackoverflow
+    //Labeling helped by http://stackoverflow
     // .com/questions/30279536/graphview-how-to-show-x-axis-label
     public void drawChart(String[] labels) {
 
         LineGraphSeries<DataPoint> series = new LineGraphSeries<>(points);
 
         //Only can display custom labels with two or more values
+        //Thus, need at least three punches before graph will work
         if(labels.length >2) {
             StaticLabelsFormatter staticLabelsFormatter = new
                     StaticLabelsFormatter(graphView);
@@ -74,6 +75,7 @@ public class EarningsFragment extends Fragment {
             graphView.getGridLabelRenderer().setLabelFormatter(staticLabelsFormatter);
         }
 
+        //setup the graph attributes
         graphView.addSeries(series);
         graphView.getViewport().setScalable(true);
         graphView.setTitle("Earnings by Date");

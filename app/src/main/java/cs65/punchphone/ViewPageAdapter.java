@@ -7,7 +7,7 @@ import android.support.v13.app.FragmentPagerAdapter;
 
 import java.util.ArrayList;
 
-
+//the class that is the adapter for the View pager (top toolbar)
 public class ViewPageAdapter extends FragmentPagerAdapter {
     private ArrayList<Fragment> fragments;
 

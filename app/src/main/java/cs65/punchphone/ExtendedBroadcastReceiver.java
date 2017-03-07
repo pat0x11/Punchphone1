@@ -13,6 +13,7 @@ import android.widget.Toast;
  * Created by Jack on 2/16/17.
  */
 
+//helps establish a connection between backend and local phone
 public class ExtendedBroadcastReceiver extends WakefulBroadcastReceiver {
 
     //handles messages that come in from the broadcast receiver
@@ -23,6 +24,9 @@ public class ExtendedBroadcastReceiver extends WakefulBroadcastReceiver {
                 IntentServiceGCM.class.getName());
         // Start the service, keeping the device awake while it is launching.
         startWakefulService(context, (intent.setComponent(comp)));
+
+        //duplicative, but ensures that the adapter is updated on the entry fragment every time new
+        //values are found
         MainActivity.dataReceived=true;
         EntryFragment.employerAdapter.clear();
         EntryFragment.employerAdapter.notifyDataSetChanged();

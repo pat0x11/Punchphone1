@@ -16,6 +16,7 @@ import cs65.punchphone.data.PunchEntry;
  * Created by brian on 3/4/17.
  */
 
+//used for the adapter on the history fragment
 public class PunchListAdapter extends ArrayAdapter<PunchEntry> {
 
     public PunchListAdapter(Context context, List<PunchEntry> entries) {

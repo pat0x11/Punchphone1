@@ -19,7 +19,7 @@ public class FrontEndEmployer {
 
     //declare the object variables
     private String mCompany;
-    private LatLng mLoc;
+    private LatLng mLoc;        //Location of the address, returned by the Geocoder
     private int radius;
     private int normalHrs;
     private int overtimeHrs;

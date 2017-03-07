@@ -44,7 +44,7 @@ public class LocationService extends Service {
     //The location that the phone most recently got
     private static Location latestLocation;
 
-
+    //fields used for the message between location service and activity
     public static final int MSG_NEW_DATA = 1;
     public static final int MSG_REGISTER_ACTIVITY = 2;
     public static final int MSG_UNREGISTER_ACTIVITY = 3;
@@ -89,7 +89,7 @@ public class LocationService extends Service {
 
                     }
                 }
-
+                //the following methods need to be declared to satisfy the superclass usage
                 @Override
                 public void onStatusChanged(String provider, int status, Bundle extras) {
 

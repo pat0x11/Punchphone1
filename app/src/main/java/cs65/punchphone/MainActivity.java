@@ -33,15 +33,17 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
 
     private ViewPager viewPager;
 
-    private ArrayList<Fragment> fragments;
-    public static ViewPageAdapter myRunsViewPagerAdapter;
+    private ArrayList<Fragment> fragments;                  //used for the fragments, contains all fragments
+    public static ViewPageAdapter myRunsViewPagerAdapter;   //view pager for the top tab
     private EntryFragment mEntryFragment;
     private HistoryFragment mHistoryFragment;
     private SettingsFragment mSettingsFragment;
     private EarningsFragment mEarningsFragment;
     private ScheduleFragment mScheduleFragment;
-    public static boolean registered;
-    private boolean bound=false;
+    public static boolean registered;                       //keeps track of registration with backend
+    private boolean bound=false;                            //bound with local service?
+
+
     //all of the employers received from front end
     public static ArrayList<FrontEndEmployer> employers = new ArrayList<FrontEndEmployer>();
 
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         intentFilter.addAction("Notify Service Action");
         this.registerReceiver(mBr,intentFilter);
 
+        //setup the top tap, containing all of the fragments
         slidingTabLayout = (SlidingTabLayout) findViewById(R.id.tab);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
 
@@ -83,8 +86,6 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         mEarningsFragment = new EarningsFragment();
 
 
-        View view = mEntryFragment.getView();
-
         //initialize the array list of employers that will be filled in when the app opens
         employers = new ArrayList<FrontEndEmployer>();
 
@@ -95,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         fragments.add(mEarningsFragment);
         fragments.add(mScheduleFragment);
 
-
+        //sets adapter to the top tab
         myRunsViewPagerAdapter = new ViewPageAdapter(getFragmentManager(),
                 fragments);
         viewPager.setAdapter(myRunsViewPagerAdapter);
@@ -136,17 +137,6 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
             }
         }
     }
-//
-//    @Override
-//    public void onDestroy(){
-//        //try to unregister the location service and the broadcast receiver
-//        if (mBr!=null){
-//            unregisterReceiver(mBr);
-//        }
-//        unbindService(serviceConnection);
-//        super.onDestroy();
-//
-//    }
 
     //Start the location service
     public void startService() {
@@ -182,6 +172,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
 
     }
 
+    //gets the sends the data to the backend
     public void getData() {
         new AsyncTask<Void, Void, Void>() {
             @Override
