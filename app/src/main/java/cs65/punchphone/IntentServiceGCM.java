@@ -7,8 +7,6 @@ import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -34,31 +32,30 @@ public class IntentServiceGCM extends IntentService {
         // The getMessageType() intent parameter must be the intent you received
         // in your BroadcastReceiver.
         String messageType = gcm.getMessageType(intent);
-
+        Log.d("IntentService", extras.toString());
         if (extras != null && !extras.isEmpty()) {  //
             String Stringgcm="gcm";
             // see what the message type was and try to get its information
             if (Stringgcm.equals(messageType)) {
 
-                String content=extras.getString("allEmployers");
-                JSONArray allEmployers=null;
+                String content=extras.getString("message");
+                Log.d("Intent", content);
+                org.json.simple.JSONArray allEmployers=null;
 
                 //convert the string to a JSON Array
                 try {
-                    allEmployers=(JSONArray)new JSONParser().parse(content);
+                    allEmployers=(org.json.simple.JSONArray)new JSONParser().parse
+                            (content);
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
 
                 //go through all JSON Objects in the JSON Array
-                for (int i=0;i<allEmployers.length();i++){
+                for (int i=0;i<allEmployers.size();i++){
                     //convert it into a JSON object
                     JSONObject currentObj=null;
-                    try {
-                        currentObj=(JSONObject)allEmployers.get(i);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+                    currentObj=(JSONObject)allEmployers.get(i);
+
 
                     //only continue if there is a valid JSON Object (non-null)
                     if (currentObj!=null){
@@ -75,7 +72,7 @@ public class IntentServiceGCM extends IntentService {
                         FrontEndEmployer toAddEmployer=null;
                         //create a new front end employer object
                         try {
-                             toAddEmployer=new FrontEndEmployer(company,street,
+                            toAddEmployer=new FrontEndEmployer(company,street,
                                     state,city,zip,radius,normalHours,overtimeHours,getApplicationContext());
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -90,6 +87,8 @@ public class IntentServiceGCM extends IntentService {
                         }
 
                     }
+
+                    Log.d("Intent", "Getting data");
                 }
 
             }

@@ -34,17 +34,17 @@ public class GCMRegAsyncTask extends AsyncTask<Void, Void, String> {
         if (registrationService == null) {
             Registration.Builder builder =
                     new Registration.Builder(AndroidHttp.newCompatibleTransport(),
-                    new AndroidJsonFactory(), null)
-                    // Need setRootUrl and setGoogleClientRequestInitializer only for local testing,
-                    // otherwise they can be skipped
-                    .setRootUrl("http://10.0.2.2:8080/_ah/api/")
-                    .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
-                        @Override
-                        public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest)
-                                throws IOException {
-                            abstractGoogleClientRequest.setDisableGZipContent(true);
-                        }
-                    });
+                            new AndroidJsonFactory(), null)
+                            // Need setRootUrl and setGoogleClientRequestInitializer only for local testing,
+                            // otherwise they can be skipped
+                            .setRootUrl("http://10.0.2.2:8080/_ah/api/")
+                            .setGoogleClientRequestInitializer(new GoogleClientRequestInitializer() {
+                                @Override
+                                public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest)
+                                        throws IOException {
+                                    abstractGoogleClientRequest.setDisableGZipContent(true);
+                                }
+                            });
             // end of optional local run code
             registrationService = builder.build();
         }
@@ -56,6 +56,7 @@ public class GCMRegAsyncTask extends AsyncTask<Void, Void, String> {
             }
             String regId = googleCloudMessaging.register(SENDER_ID);
             message = "Device registered, registration ID=" + regId;
+            MainActivity.registered = true;
 
             // You should send the registration ID to your server over HTTP,
             // so it can use GCM/HTTP or CCS to send messages to your app.
@@ -73,5 +74,6 @@ public class GCMRegAsyncTask extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPostExecute(String message) {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+
     }
 }

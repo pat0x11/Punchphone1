@@ -17,8 +17,6 @@ import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 
-import com.google.android.gms.maps.model.LatLng;
-
 
 /**
  * Created by CarterJacobsen on 3/1/17.
@@ -39,14 +37,13 @@ public class LocationService extends Service {
     private LocationManager locationManager;
 
     //The type of accuracy necessary for the locations
-    private String locationProvider;
+    public static String locationProvider;
+
+    private static Location latestLocation;
 
     public boolean isRunning = false; //Whether it is running
 
-    private LatLng jobsite;
-    private int radius;
-
-    public static final int EMPLOYEE_PUNCHOUT = 1;
+    public static final int MSG_NEW_DATA = 1;
     public static final int MSG_REGISTER_ACTIVITY = 2;
     public static final int MSG_UNREGISTER_ACTIVITY = 3;
 
@@ -54,10 +51,10 @@ public class LocationService extends Service {
     public int onStartCommand(Intent intent, int flags, int startdId) {
         super.onStartCommand(intent, flags, startdId);
         Bundle data = intent.getExtras();
-        Double latitude = data.getDouble("lat");
-        Double longitude = data.getDouble("long");
-        jobsite = new LatLng(latitude, longitude);
-        radius = data.getInt("radius");
+//        Double latitude = data.getDouble("lat");
+//        Double longitude = data.getDouble("long");
+//        jobsite = new LatLng(latitude, longitude);
+//        radius = data.getInt("radius");
         //Set the location manager
         locationManager = (LocationManager) getSystemService
                 (Context.LOCATION_SERVICE);
@@ -78,19 +75,20 @@ public class LocationService extends Service {
             LocationListener locationListener = new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location) {
-                    Location jobsiteCenter = new Location(locationProvider);
-                    jobsiteCenter.setLatitude(jobsite.latitude);
-                    jobsiteCenter.setLongitude(jobsite.longitude);
-                    if (jobsiteCenter.distanceTo(location) > radius) {
-                        if (clientRegistered) {
-                            Message message = Message.obtain(null, EMPLOYEE_PUNCHOUT,
-                                    0, 0);
-                            try {
-                                client.send(message);
-                            } catch (RemoteException e) {
-                                e.printStackTrace();
-                            }
+                    latestLocation = location;
+//                    Location jobsiteCenter = new Location(locationProvider);
+//                    jobsiteCenter.setLatitude(jobsite.latitude);
+//                    jobsiteCenter.setLongitude(jobsite.longitude);
+//                    if (jobsiteCenter.distanceTo(location) > radius) {
+                    if (clientRegistered) {
+                        Message message = Message.obtain(null, MSG_NEW_DATA,
+                                0, 0);
+                        try {
+                            client.send(message);
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
                         }
+                        //}
                     }
                 }
 
@@ -130,6 +128,13 @@ public class LocationService extends Service {
     }
 
 
+    public static Location getLatestLocation(){
+        if(latestLocation!= null) {
+            return latestLocation;
+        }else{
+            return null;
+        }
+    }
     //Handle all the messages that come in to the service
     //Based on handler in BindDemo
     private class MessageHandler extends Handler {

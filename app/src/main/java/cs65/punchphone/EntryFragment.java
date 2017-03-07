@@ -13,8 +13,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,19 +37,23 @@ public class EntryFragment extends Fragment {
     protected ActionBarDrawerToggle mainActionBarToggle;    //the toggle used to create the nav menu
     protected NavigationView currentNav;                    //the navigation view on the main page
     protected DrawerLayout mDrawerLayout;                   //drawer layout for the class
-    public Button punchIn;                                  //punch in button
-    public Button punchOut;                                 //punch out button
-    public boolean punchStatus;                             //true=punched in, false=punched out
-    public TextView punchMessage;                           //the message displaying the punch status
+    public static Button punchIn;                                  //punch in button
+    public static Button punchOut;                                 //punch out
+    // button
+    public static boolean punchStatus;                             //true=punched
+    // in, false=punched out
+    public static TextView punchMessage;                           //the message
+    // displaying the punch status
     public TextView dateText;                               //the text view containing the date
     public TextClock timeText;                              //the text view containing the time
     private Long punchInTime;
 
+    public static EmployerAdapter employerAdapter;
+    public static Spinner spinner;
 
     private PunchEntry punchEntry;
     private PunchEntryDbHelper punchDbHelper;
     private final static String SERVER = "http://10.0.2.2:8080";
-
 
 
     @Override
@@ -82,26 +88,47 @@ public class EntryFragment extends Fragment {
         punchEntry = new PunchEntry();
         punchDbHelper = new PunchEntryDbHelper(getActivity());
 
-        new GCMRegAsyncTask(getActivity().getApplicationContext()).execute();
+        employerAdapter = new EmployerAdapter(getContext(), MainActivity
+                .employers);
+        spinner = (Spinner) view.findViewById(R.id.spinner);
+        spinner.setAdapter(employerAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("Position: ",Integer.toString(position));
+                int spinnerVal = (int) parent.getItemIdAtPosition(position);
+                Log.d("Listener", ""+spinnerVal);
+                MainActivity.frontEndEmployer = MainActivity.employers.get(spinnerVal);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         return view;
     }
 
 
-
     // a helper method that determines what the punch status is
-    private boolean getInitialPunchStatus(){
+    public static boolean getInitialPunchStatus(){
 
         String status=punchMessage.getText().toString();
-
-        //punched in
-        if (status.compareTo("Punched In")==0){
-            punchStatus=true;
+        Log.d("Get intitial", "" + MainActivity.dataReceived);
+        if(MainActivity.dataReceived) {
+            //punched in
+            if (status.compareTo("Punched In") == 0) {
+                punchStatus = true;
+                punchIn.setEnabled(false);
+                punchOut.setEnabled(true);
+            } else {
+                punchStatus = false;
+                punchIn.setEnabled(true);
+                punchOut.setEnabled(false);
+            }
+        }else{
             punchIn.setEnabled(false);
-            punchOut.setEnabled(true);
-        }
-        else{
-            punchStatus=false;
-            punchIn.setEnabled(true);
             punchOut.setEnabled(false);
         }
         return punchStatus;
@@ -121,7 +148,7 @@ public class EntryFragment extends Fragment {
             punchMessage.setTextColor(getResources().getColor(R.color.greenStatus));
             punchStatus=true;
 
-
+            FrontEndEmployer employer= MainActivity.frontEndEmployer;
             punchEntry.setInputType(0);
             SharedPreferences settings = PreferenceManager
                     .getDefaultSharedPreferences(getContext());
@@ -130,7 +157,7 @@ public class EntryFragment extends Fragment {
             punchEntry.setName(name);
 
             // How do we get company ....
-            punchEntry.setCompany("my Company");
+            punchEntry.setCompany(employer.getName());
             punchEntry.setSite("new site");
             punchEntry.setInDateTime(java.util.Calendar.getInstance());
 
@@ -252,4 +279,5 @@ public class EntryFragment extends Fragment {
             Toast.makeText(getContext(), param, Toast.LENGTH_LONG).show();
         }
     }
+
 }
