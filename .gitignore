@@ -8,6 +8,8 @@
 /captures
 .externalNativeBuild
 
+*.jar
+
 #built application files
 *.apk
 *.ap_
