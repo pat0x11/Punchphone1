@@ -21,6 +21,7 @@ import android.util.Log;
 
 /**
  * Created by CarterJacobsen on 3/1/17.
+ * Modeled on Map Service from my runs
  */
 
 public class LocationService extends Service {
@@ -40,9 +41,9 @@ public class LocationService extends Service {
     //The type of accuracy necessary for the locations
     public static String locationProvider;
 
+    //The location that the phone most recently got
     private static Location latestLocation;
 
-    public boolean isRunning = false; //Whether it is running
 
     public static final int MSG_NEW_DATA = 1;
     public static final int MSG_REGISTER_ACTIVITY = 2;
@@ -52,10 +53,7 @@ public class LocationService extends Service {
     public int onStartCommand(Intent intent, int flags, int startdId) {
         super.onStartCommand(intent, flags, startdId);
         Bundle data = intent.getExtras();
-//        Double latitude = data.getDouble("lat");
-//        Double longitude = data.getDouble("long");
-//        jobsite = new LatLng(latitude, longitude);
-//        radius = data.getInt("radius");
+
         //Set the location manager
         locationManager = (LocationManager) getSystemService
                 (Context.LOCATION_SERVICE);
@@ -77,12 +75,9 @@ public class LocationService extends Service {
             LocationListener locationListener = new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location) {
-                    Log.d("Location Service","New location");
+
                     latestLocation = location;
-//                    Location jobsiteCenter = new Location(locationProvider);
-//                    jobsiteCenter.setLatitude(jobsite.latitude);
-//                    jobsiteCenter.setLongitude(jobsite.longitude);
-//                    if (jobsiteCenter.distanceTo(location) > radius) {
+
                     if (clientRegistered) {
                         Message message = Message.obtain(null, MSG_NEW_DATA,
                                 0, 0);
@@ -91,7 +86,7 @@ public class LocationService extends Service {
                         } catch (RemoteException e) {
                             e.printStackTrace();
                         }
-                        //}
+
                     }
                 }
 
@@ -110,7 +105,7 @@ public class LocationService extends Service {
 
                 }
             };
-            //How often is the shortest to grab location updates
+            //Making sure that the location is updated frequently
             locationManager.requestLocationUpdates(locationProvider, 100, 1,
                     locationListener);
         }
@@ -121,7 +116,7 @@ public class LocationService extends Service {
     }
 
 
-
+    //Bind the service and activity
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -133,7 +128,7 @@ public class LocationService extends Service {
         super.onDestroy();
     }
 
-
+    //Gets the latest location if there is one otherwise just give nothing back
     public static Location getLatestLocation(){
         if(latestLocation!= null) {
             return latestLocation;

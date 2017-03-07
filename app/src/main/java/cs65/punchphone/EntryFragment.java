@@ -1,25 +1,19 @@
 package cs65.punchphone;
 
 import android.app.Fragment;
-import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.icu.util.Calendar;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextClock;
 import android.widget.TextView;
@@ -34,13 +28,10 @@ import java.util.Map;
 import cs65.punchphone.data.PunchEntry;
 import cs65.punchphone.data.PunchEntryDbHelper;
 
-//test comment
+//Group built
+
 public class EntryFragment extends Fragment {
-    protected DrawerLayout navDrawers;  //the drawer layout in navigation_menu.xml
-    protected ListView navListView;     //the listView that will be populated with nav items
-    protected ActionBarDrawerToggle mainActionBarToggle;    //the toggle used to create the nav menu
-    protected NavigationView currentNav;                    //the navigation view on the main page
-    protected DrawerLayout mDrawerLayout;                   //drawer layout for the class
+
     public static Button punchIn;                                  //punch in button
     public static Button punchOut;                                 //punch out
     // button
@@ -50,7 +41,6 @@ public class EntryFragment extends Fragment {
     // displaying the punch status
     public TextView dateText;                               //the text view containing the date
     public TextClock timeText;                              //the text view containing the time
-    private Long punchInTime;
 
     public static EmployerAdapter employerAdapter;
     public static Spinner spinner;
@@ -100,24 +90,35 @@ public class EntryFragment extends Fragment {
         punchEntry = new PunchEntry();
         punchDbHelper = new PunchEntryDbHelper(getActivity());
 
+        //Adds the data to the spinner if available
         setupSpinner();
 
         return view;
     }
 
+    //Adds the data to the spinner
     public static void setupSpinner() {
-        Log.d("EmployerssetupSpinner: ",Integer.toString(MainActivity.employers.size()));
+
+        //Log.d("EmployerssetupSpinner: ",Integer.toString(MainActivity.employers.size()));
+
+        //Attach the adapter I created
         employerAdapter = new EmployerAdapter(mContext, MainActivity.employers);
-        spinner = (Spinner) view.findViewById(R.id.spinner);
+        spinner = (Spinner) view.findViewById(R.id.spinner); //get spinner
 
         employerAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         spinner.setAdapter(employerAdapter);
+
+        //Set up what happens when the user selects an item from the spinner
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
+
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("Position: ", Integer.toString(position));
+
+                //Log.d("Position: ", Integer.toString(position));
+                //Get the position
                 int spinnerVal = (int) parent.getItemIdAtPosition(position);
-                Log.d("Listener", "" + spinnerVal);
+                //Log.d("Listener", "" + spinnerVal);
+                //Find the emplyer object in the array
                 MainActivity.frontEndEmployer = MainActivity.employers.get(spinnerVal);
             }
 
@@ -132,19 +133,19 @@ public class EntryFragment extends Fragment {
     public static boolean getInitialPunchStatus() {
 
         String status = punchMessage.getText().toString();
-        Log.d("Get intitial", "" + MainActivity.dataReceived);
-        if (MainActivity.dataReceived) {
+
+        if (MainActivity.dataReceived) { //Make sure the data is received
             //punched in
             if (status.compareTo("Punched In") == 0) {
                 punchStatus = true;
                 punchIn.setEnabled(false);
                 punchOut.setEnabled(true);
-            } else {
+            } else { //punched out
                 punchStatus = false;
                 punchIn.setEnabled(true);
                 punchOut.setEnabled(false);
             }
-        } else {
+        } else { //Set both to false
             punchIn.setEnabled(false);
             punchOut.setEnabled(false);
         }
@@ -153,15 +154,22 @@ public class EntryFragment extends Fragment {
 
     //a helper method that handles punching in
     public void handlePunchIn(View v) {
+        //get employer
         FrontEndEmployer employer = MainActivity.frontEndEmployer;
         //proceed if the user is not punched in
         if (!punchStatus) {
+            //Get the location of the employers site
             Location employerLocation = new Location(LocationService.locationProvider);
             employerLocation.setLatitude(employer.getLat());
             employerLocation.setLongitude(employer.getLong());
 
-            Log.d("Entry", (MainActivity.currentLocation == null) + "");
-            if (MainActivity.currentLocation != null){// && MainActivity.currentLocation.distanceTo(employerLocation) < employer.getRadius()) {
+
+            if (MainActivity.currentLocation != null) {
+
+//            if(MainActivity.currentLocation != null && MainActivity
+//                    .currentLocation.distanceTo
+//                    (employerLocation) < employer.getRadius()) {
+
                 //disable the punch in button
                 punchIn.setEnabled(false);
                 //enable the punch out button
@@ -172,7 +180,7 @@ public class EntryFragment extends Fragment {
                 punchMessage.setTextColor(getResources().getColor(R.color.greenStatus));
                 punchStatus = true;
 
-
+                //put data in the punch entry
                 punchEntry.setInputType(0);
                 SharedPreferences settings = PreferenceManager
                         .getDefaultSharedPreferences(getContext());
@@ -180,23 +188,20 @@ public class EntryFragment extends Fragment {
                 String name = settings.getString(getContext().getString(R.string.ui_settings_name_key), "empty");
                 punchEntry.setName(name);
 
-                Log.d("Array Size: ", Integer.toString(EmployerAdapter.employers.size()));
+                //Log.d("Array Size: ", Integer.toString(EmployerAdapter.employers.size()));
 
-                Object current = EntryFragment.spinner.getSelectedItem();
-                // How do we get company ....
+                // get company name and site as well as date in
                 punchEntry.setCompany(employer.getName());
                 punchEntry.setSite("office");
                 punchEntry.setInDateTime(java.util.Calendar.getInstance());
 
             } else {
-                //Toast toast = Toast.makeText(getApplicationContext(), R.string.punchError, Toast.LENGTH_SHORT);
                 Toast.makeText(getActivity().getApplicationContext(),
                         R.string.punchError, Toast.LENGTH_SHORT).show();
             }
         } else {
-            //Toast toast = Toast.makeText(getApplicationContext(), R.string.punchError, Toast.LENGTH_SHORT);
-            Toast toast = Toast.makeText(getActivity().getApplicationContext(),
-                    R.string.punchError, Toast.LENGTH_SHORT);
+            Toast.makeText(getActivity().getApplicationContext(),
+                    R.string.punchError, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -230,12 +235,12 @@ public class EntryFragment extends Fragment {
             new SendPunchTask().execute(punchEntry);
             new InsertPunchTask().execute(punchEntry);
         } else {
-            //Toast toast = Toast.makeText(getApplicationContext(), R.string.punchError, Toast.LENGTH_SHORT);
-            Toast toast = Toast.makeText(getActivity().getApplicationContext(),
-                    R.string.punchError, Toast.LENGTH_SHORT);
+            Toast.makeText(getActivity().getApplicationContext(),
+                    R.string.punchError, Toast.LENGTH_SHORT).show();
         }
     }
 
+    //Get the duration between punch out and in times in milliseconds
     private int createDuration() {
         int duration = (int) ((punchEntry.getOutDateTimeMillis() - punchEntry
                 .getInDateTimeMillis())
@@ -263,13 +268,13 @@ public class EntryFragment extends Fragment {
 
     }
 
+    //Will put the punch in the phone's database
     public class InsertPunchTask extends AsyncTask<PunchEntry, Void, String> {
         @Override
         protected String doInBackground(PunchEntry... exerciseEntries) {
             long id = punchDbHelper.insertEntry(exerciseEntries[0]);
             return "" + id;
         }
-
         @Override
         protected void onPostExecute(String result) {
             Toast.makeText(getContext(), "Punch #" + result + " saved.", Toast.LENGTH_SHORT)
