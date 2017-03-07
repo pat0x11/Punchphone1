@@ -18,6 +18,7 @@ import cs65.punchphone.backend.data.PunchDataStore;
  * Created by Patrick on 2/26/17.
  */
 
+//HistoryServlet allows the employer to view employee punches and
 public class HistoryServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -25,9 +26,8 @@ public class HistoryServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         String username = request.getParameter("username");
-
+        //get company name from username
         String companyname = EmployerDataStore.getCompanyName(username);
-//        request.setAttribute("username", username);
         out.write("<html>\n" +
                 "<head>\n" +
                 "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\">\n" +
@@ -51,23 +51,27 @@ public class HistoryServlet extends HttpServlet {
                 "<th>Punch Out</th>\n" +
                 "<th>Company</th>\n" +
                 "<th>Site</th>\n" +
-                //"<th>Delete</th>\n" +
+//                "<th>Delete</th>\n" +
                 "</tr>\n");
+        //get all pucnhes from database
         ArrayList<Punch> pList = PunchDataStore.query(null);
         ArrayList<Punch> pList1 = new ArrayList<>();
+        //get userid from form data
         String userid = request.getParameter("userid");
-
+        //filter by company
         for (Punch p: pList) {
             if (userid==null || userid.equals("")) {
                 if (p.mCompany.equals(companyname)) {
                     pList1.add(p);
                 }
+            //filter by company and userid
             } else {
                 if (p.mUserId.equals(userid) && p.mCompany.equals(companyname)) {
                     pList1.add(p);
                 }
             }
         }
+        //get calendar strings
         for (Punch p: pList1) {
             String calin;
             Calendar calendar = Calendar.getInstance();
@@ -86,6 +90,7 @@ public class HistoryServlet extends HttpServlet {
             hour = Integer.toString(calendar.get(Calendar.HOUR_OF_DAY));
             minute = Integer.toString(calendar.get(Calendar.MINUTE));
             calout = month + "/" + day + "/" + year + " " + hour + ":" + minute;
+            //write punches to table
             out.write("<tr>\n" +
                     "<td>" + p.mPunchId + "</td>\n" +
                     "<td>" + p.mUserId + "</td>\n" +
@@ -93,9 +98,9 @@ public class HistoryServlet extends HttpServlet {
                     "<td>" + calout + "</td>\n" +
                     "<td>" + p.mCompany + "</td>\n" +
                     "<td>" + p.mSite + "</td>\n" +
-                    //"<td><input type=\"button\" onclick=\"location.href='/delete.do?punchid="
-                    //+p.mPunchId+"&username="+username+ "&userid1="+userid+
-                    //"'\" value=\"Delete\"></td>\n" +
+//                    "<td><input type=\"button\" onclick=\"location.href='/delete.do?punchid="
+//                    +p.mPunchId+"&username="+username+ "&userid1="+userid+
+//                    "'\" value=\"Delete\"></td>\n" +
                     "</tr>\n");
         }
         out.write("</table>\n");
