@@ -81,7 +81,6 @@ public class IntentServiceGCM extends IntentService {
                             //check to make sure that there are no errors
                             if (toAddEmployer != null) {
                                 //add it to a list of these objects
-
                                 //ADD HERE
                                 MainActivity.employers.add(toAddEmployer);
                             }

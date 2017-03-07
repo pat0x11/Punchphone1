@@ -79,4 +79,8 @@ public class FrontEndEmployer {
     public int getRadius() {
         return radius;
     }
+
+    public int getNormalHrs(){ return normalHrs;}
+
+    public int getOvertimeHrs(){ return overtimeHrs;}
 }
