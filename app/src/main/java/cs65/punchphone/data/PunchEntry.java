@@ -37,7 +37,32 @@ public class PunchEntry {
 
     }
 
-
+//    public String toString() {
+//        String calin;
+//        Calendar calendar = Calendar.getInstance();
+//        calendar.setTimeInMillis(getInDateTimeMillis());
+//        String month = Integer.toString(calendar.get(Calendar.MONTH) + 1);
+//        String day = Integer.toString(calendar.get(Calendar.DAY_OF_MONTH));
+//        String year = Integer.toString(calendar.get(Calendar.YEAR));
+//        String hour = Integer.toString(calendar.get(Calendar.HOUR_OF_DAY));
+//        String minute = Integer.toString(calendar.get(Calendar.MINUTE));
+//        calin = month + "/" + day + "/" + year + " " + hour + ":" + minute;
+//        String calout;
+//        calendar.setTimeInMillis(getOutDateTimeMillis());
+//        month = Integer.toString(calendar.get(Calendar.MONTH) + 1);
+//        day = Integer.toString(calendar.get(Calendar.DAY_OF_MONTH));
+//        year = Integer.toString(calendar.get(Calendar.YEAR));
+//        hour = Integer.toString(calendar.get(Calendar.HOUR_OF_DAY));
+//        minute = Integer.toString(calendar.get(Calendar.MINUTE));
+//        calout = month + "/" + day + "/" + year + " " + hour + ":" + minute;
+//        int hours = duration / 3600;
+//        int minutes = duration / 60;
+//        int seconds = duration % 60;
+//        String retString = Integer.toString(hours) + " hours, " + Integer.toString(minutes) +
+//                " minutes, " + Integer.toString(seconds) + " seconds for " + company + " at " + site
+//                + " between " + calin + " and " + calout;
+//        return retString;
+//    }
 
     public Long getId() {
         return id;

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.util.Calendar;
 import java.util.List;
 
 import cs65.punchphone.data.PunchEntry;
@@ -35,8 +36,30 @@ public class PunchListAdapter extends ArrayAdapter<PunchEntry> {
             input = "manual";
         }
 
-        String first = entry.getInDateTimeMillis() + " at " + entry.getSite();
-        String second = input + ": for " + entry.getDuration() + " earning: $" + entry.getEarnings();
+        String calin;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(entry.getInDateTimeMillis());
+        String month = Integer.toString(calendar.get(Calendar.MONTH) + 1);
+        String day = Integer.toString(calendar.get(Calendar.DAY_OF_MONTH));
+        String year = Integer.toString(calendar.get(Calendar.YEAR));
+        String hour = Integer.toString(calendar.get(Calendar.HOUR_OF_DAY));
+        String minute = Integer.toString(calendar.get(Calendar.MINUTE));
+        calin = month + "/" + day + "/" + year + " " + hour + ":" + minute;
+        String calout;
+        calendar.setTimeInMillis(entry.getOutDateTimeMillis());
+        month = Integer.toString(calendar.get(Calendar.MONTH) + 1);
+        day = Integer.toString(calendar.get(Calendar.DAY_OF_MONTH));
+        year = Integer.toString(calendar.get(Calendar.YEAR));
+        hour = Integer.toString(calendar.get(Calendar.HOUR_OF_DAY));
+        minute = Integer.toString(calendar.get(Calendar.MINUTE));
+        calout = month + "/" + day + "/" + year + " " + hour + ":" + minute;
+        int hours = entry.getDuration() / 3600;
+        int minutes = entry.getDuration() / 60;
+        int seconds = entry.getDuration() % 60;
+        String first = Integer.toString(hours) + " hours, " + Integer.toString(minutes) +
+                " minutes, " + Integer.toString(seconds) + " seconds for " + entry.getCompany()
+                + " at " + entry.getSite();
+        String second = "between " + calin + " and " + calout;
 
         TextView line1 = (TextView) convertView.findViewById(R.id.first_line);
         TextView line2 = (TextView) convertView.findViewById(R.id.second_line);
