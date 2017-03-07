@@ -27,14 +27,7 @@ public class appOpenedServlet extends HttpServlet {
     //the get method sends a message containing all known employers, their locations, and the radius
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         mLogger.log(Level.INFO,"Coming to appOpenedServlet");
-
-        //ensure that the app user does want all of the information on employers
-        String msgType=request.getParameter("msgType");
-
-        if (msgType.compareTo(NEW_CONNECTION)!=0){
-            //then this is the wrong message type, so return null and exit
-            return;
-        }
+        
 
         //at this point, we know that the user wants every thing from the employer datastore
         //get the array list of employer information from the datastore
