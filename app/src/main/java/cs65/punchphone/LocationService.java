@@ -77,6 +77,7 @@ public class LocationService extends Service {
             LocationListener locationListener = new LocationListener() {
                 @Override
                 public void onLocationChanged(Location location) {
+                    Log.d("Location Service","New location");
                     latestLocation = location;
 //                    Location jobsiteCenter = new Location(locationProvider);
 //                    jobsiteCenter.setLatitude(jobsite.latitude);

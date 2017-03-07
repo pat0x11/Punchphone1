@@ -160,6 +160,7 @@ public class EntryFragment extends Fragment {
             employerLocation.setLatitude(employer.getLat());
             employerLocation.setLongitude(employer.getLong());
 
+            Log.d("Entry", (MainActivity.currentLocation == null) + "");
             if (MainActivity.currentLocation != null){// && MainActivity.currentLocation.distanceTo(employerLocation) < employer.getRadius()) {
                 //disable the punch in button
                 punchIn.setEnabled(false);
@@ -184,7 +185,7 @@ public class EntryFragment extends Fragment {
                 Object current = EntryFragment.spinner.getSelectedItem();
                 // How do we get company ....
                 punchEntry.setCompany(employer.getName());
-                punchEntry.setSite("new site");
+                punchEntry.setSite("office");
                 punchEntry.setInDateTime(java.util.Calendar.getInstance());
 
             } else {
