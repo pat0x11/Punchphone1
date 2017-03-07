@@ -1,7 +1,5 @@
 package cs65.punchphone;
 
-import android.util.Log;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +17,7 @@ import java.util.Random;
  * Helper class used to communicate with the AppEngine server.
  */
 public final class ServerUtilities {
-	
+
 	private static final int MAX_ATTEMPTS = 5;
 	private static final int BACKOFF_MILLI_SECONDS = 2000;
 	private static final Random random = new Random();
@@ -27,12 +25,12 @@ public final class ServerUtilities {
 
 	/**
 	 * Issue a POST request to the server.
-	 * 
+	 *
 	 * @param endpoint
 	 *            POST address.
 	 * @param params
 	 *            request parameters.
-	 * 
+	 *
 	 * @throws IOException
 	 *             propagated from POST.
 	 */
@@ -45,14 +43,19 @@ public final class ServerUtilities {
 			throw new IllegalArgumentException("invalid url: " + endpoint);
 		}
 		StringBuilder bodyBuilder = new StringBuilder();
-		Iterator<Entry<String, String>> iterator = params.entrySet().iterator();
+		Iterator<Entry<String, String>> iterator = null;
+		if(params!= null) {
+			iterator = params.entrySet().iterator();
+		}
 		// constructs the POST body using the parameters
-		while (iterator.hasNext()) {
-			Entry<String, String> param = iterator.next();
-			bodyBuilder.append(param.getKey()).append('=')
-					.append(param.getValue());
-			if (iterator.hasNext()) {
-				bodyBuilder.append('&');
+		if(iterator!= null) {
+			while (iterator.hasNext()) {
+				Entry<String, String> param = iterator.next();
+				bodyBuilder.append(param.getKey()).append('=')
+						.append(param.getValue());
+				if (iterator.hasNext()) {
+					bodyBuilder.append('&');
+				}
 			}
 		}
 		String body = bodyBuilder.toString();
@@ -72,7 +75,6 @@ public final class ServerUtilities {
 			out.close();
 			// handle the response
 			int status = conn.getResponseCode();
-			Log.d("TAGG",""+status);
 			if (status != 200) {
 				throw new IOException("Post failed with error code " + status);
 			}
