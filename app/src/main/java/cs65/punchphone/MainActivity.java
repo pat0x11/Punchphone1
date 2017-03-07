@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
     private ViewPager viewPager;
 
     private ArrayList<Fragment> fragments;
-    private ViewPageAdapter myRunsViewPagerAdapter;
+    public static ViewPageAdapter myRunsViewPagerAdapter;
     private EntryFragment mEntryFragment;
     private HistoryFragment mHistoryFragment;
     private SettingsFragment mSettingsFragment;

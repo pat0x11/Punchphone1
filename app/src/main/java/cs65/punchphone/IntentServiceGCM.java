@@ -88,6 +88,7 @@ public class IntentServiceGCM extends IntentService {
                         }
 
                         Log.d("Intent", "Getting data");
+                        Log.d("SizeInIntent",Integer.toString(MainActivity.employers.size()));
                     }
                 }
             }

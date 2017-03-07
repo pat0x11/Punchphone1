@@ -25,6 +25,7 @@ public class HistoryServlet extends HttpServlet {
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
         String username = request.getParameter("username");
+        String currentPassword=EmployerDataStore.getEmployerByUsername(username).mPassword;
         String companyname = EmployerDataStore.getCompanyName(username);
 //        request.setAttribute("username", username);
         out.write("<html>\n" +
@@ -98,7 +99,9 @@ public class HistoryServlet extends HttpServlet {
                     "</tr>\n");
         }
         out.write("</table>\n");
-        out.write("</body>\n" +
+        out.write("</body><br>" +
+                "<a href=\"welcome.do?employername="+username+"&password="
+                +currentPassword+"\">Back to Welcome Page</a>" +
                 "</html>");
     }
 
