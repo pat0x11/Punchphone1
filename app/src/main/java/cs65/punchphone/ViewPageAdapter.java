@@ -27,15 +27,15 @@ public class ViewPageAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "Punch";
+                return "Account";
             case 1:
-                return "History";
+                return "Punch";
             case 2:
-                return "Earnings";
+                return "History";
             case 3:
-                return "Schedule";
+                return "Earnings";
             case 4:
-                return "Settings";
+                return "Schedule";
             default:
                 break;
         }

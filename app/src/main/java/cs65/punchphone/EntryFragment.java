@@ -163,6 +163,7 @@ public class EntryFragment extends Fragment {
             employerLocation.setLatitude(employer.getLat());
             employerLocation.setLongitude(employer.getLong());
 
+
             if (MainActivity.currentLocation != null) {
 
 //            if(MainActivity.currentLocation != null && MainActivity
@@ -191,7 +192,7 @@ public class EntryFragment extends Fragment {
 
                 // get company name and site as well as date in
                 punchEntry.setCompany(employer.getName());
-                punchEntry.setSite("new site");
+                punchEntry.setSite("office");
                 punchEntry.setInDateTime(java.util.Calendar.getInstance());
 
             } else {

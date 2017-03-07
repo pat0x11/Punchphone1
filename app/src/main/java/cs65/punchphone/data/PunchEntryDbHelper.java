@@ -107,11 +107,11 @@ public class PunchEntryDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<PunchEntry> entries = new ArrayList<PunchEntry>();
         Cursor cursor = db.query(TABLE_NAME_PUNCHES, allColumns, null, null, null, null, null);
-        cursor.moveToFirst();
-        while (!cursor.isAfterLast()) {
+        cursor.moveToLast();
+        while (!cursor.isBeforeFirst()) {
             PunchEntry entry = cursorToEntry(cursor);
             entries.add(entry);
-            cursor.moveToNext();
+            cursor.moveToPrevious();
         }
         cursor.close();
         return entries;

@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        checkPermissions();
+
 
         //setup and register the broadcast receiver
         mBr=new BroadcastReceiver() {
@@ -89,11 +89,12 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         employers = new ArrayList<FrontEndEmployer>();
 
         fragments = new ArrayList<Fragment>();
+        fragments.add(mSettingsFragment);
         fragments.add(mEntryFragment);
         fragments.add(mHistoryFragment);
         fragments.add(mEarningsFragment);
         fragments.add(mScheduleFragment);
-        fragments.add(mSettingsFragment);
+
 
         myRunsViewPagerAdapter = new ViewPageAdapter(getFragmentManager(),
                 fragments);
@@ -110,7 +111,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
         getData();
 
         doBindService();
-        startService();
+        checkPermissions();
     }
 
     //Class to get messages from the service
@@ -120,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
             if (message.what == LocationService.MSG_NEW_DATA) { //the service has
                 Log.d("message handler",message.getData().toString());
                 currentLocation = LocationService.getLatestLocation();
-                if (currentLocation != null) {
+                if (currentLocation != null && mEntryFragment.punchStatus) {
                     Location jobsiteCenter = new Location(LocationService.locationProvider);
                     jobsiteCenter.setLatitude(frontEndEmployer.getLat());
                     jobsiteCenter.setLongitude(frontEndEmployer.getLong());
@@ -221,6 +222,8 @@ public class MainActivity extends AppCompatActivity implements ServiceConnection
             requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
                     android.Manifest.permission.ACCESS_COARSE_LOCATION}, 0);
         }
+        Log.d("Main", "Starting Service");
+        startService();
     }
 
     //Next bunch of methods allow the user to change the hours worked on each
