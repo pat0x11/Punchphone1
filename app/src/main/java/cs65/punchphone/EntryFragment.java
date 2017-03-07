@@ -95,6 +95,13 @@ public class EntryFragment extends Fragment {
         punchEntry = new PunchEntry();
         punchDbHelper = new PunchEntryDbHelper(getActivity());
 
+        setupSpinner(view);
+
+        return view;
+    }
+
+    public void setupSpinner(View view) {
+        Log.d("EmployerssetupSpinner: ",Integer.toString(MainActivity.employers.size()));
         employerAdapter = new EmployerAdapter(getActivity(), MainActivity.employers);
         spinner = (Spinner) view.findViewById(R.id.spinner);
 
@@ -114,14 +121,6 @@ public class EntryFragment extends Fragment {
 
             }
         });
-
-        return view;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        employerAdapter.notifyDataSetChanged();
     }
 
     // a helper method that determines what the punch status is

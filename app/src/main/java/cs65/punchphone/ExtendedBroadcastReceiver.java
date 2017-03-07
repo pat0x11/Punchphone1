@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.os.PowerManager;
 import android.support.v4.content.WakefulBroadcastReceiver;
 import android.util.Log;
 import android.widget.Toast;
@@ -30,4 +31,5 @@ public class ExtendedBroadcastReceiver extends WakefulBroadcastReceiver {
         Toast.makeText(context,"Loaded all employers" , Toast.LENGTH_SHORT).show();
 
     }
+
 }
