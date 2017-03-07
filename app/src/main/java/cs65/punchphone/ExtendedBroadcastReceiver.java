@@ -22,6 +22,10 @@ public class ExtendedBroadcastReceiver extends WakefulBroadcastReceiver {
                 IntentServiceGCM.class.getName());
         // Start the service, keeping the device awake while it is launching.
         startWakefulService(context, (intent.setComponent(comp)));
+        MainActivity.dataReceived=true;
+        EntryFragment.employerAdapter.clear();
+        EntryFragment.employerAdapter.notifyDataSetChanged();
+        EntryFragment.getInitialPunchStatus();
         setResultCode(Activity.RESULT_OK);
         Toast.makeText(context,"Loaded all employers" , Toast.LENGTH_SHORT).show();
 

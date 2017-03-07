@@ -39,18 +39,19 @@ public class EmployerAdapter extends ArrayAdapter<FrontEndEmployer> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         TextView textView = new TextView(context);
-        Log.d("Adapter", "view getting called");
         textView.setText(employers.get(position).getName());
+        textView.setTextSize(25);
         return textView;
     }
 
     @Override
     public View getDropDownView(int position, View convertView,
                                 ViewGroup parent) {
-        TextView label = new TextView(context);
-        label.setTextColor(Color.BLACK);
-        label.setText(employers.get(position).getName());
+        TextView textView = new TextView(context);
+        textView.setTextColor(Color.BLACK);
+        textView.setText(employers.get(position).getName());
+        textView.setTextSize(25);
 
-        return label;
+        return textView;
     }
 }

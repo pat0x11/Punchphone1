@@ -67,4 +67,16 @@ public class FrontEndEmployer {
     public String getName() {
         return mCompany;
     }
+
+    public double getLat() {
+        return mLoc.latitude;
+    }
+
+    public double getLong() {
+        return mLoc.longitude;
+    }
+
+    public int getRadius() {
+        return radius;
+    }
 }

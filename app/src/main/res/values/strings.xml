@@ -11,7 +11,7 @@
     </array>
     <string name="openInfo">open</string>
     <string name="closeInfo">close</string>
-    <string name="punchError">Error: You are already punched in</string>
+    <string name="punchError">Error: You must be on location. Check location services.</string>
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
