@@ -1,11 +1,10 @@
-
-
 package cs65.punchphone.backend.data;
 
 /**
  * Created by Patrick on 2/26/17.
  */
 
+//Punch Object for punch datastore.  Holds id for punch, user id, company, side, and punch in/out
 public class Punch {
     public static final String PUNCH_PARENT_ENTITY_NAME = "PunchParent";
     public static final String PUNCH_PARENT_KEY_NAME = "PunchParent";

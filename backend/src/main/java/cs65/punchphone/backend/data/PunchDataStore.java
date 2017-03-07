@@ -19,6 +19,7 @@ import java.util.Arrays;
  * Created by Patrick on 2/26/17.
  */
 
+//punch datastore - add, delete, query
 public class PunchDataStore {
 
     public static final DatastoreService datastoreService = DatastoreServiceFactory.getDatastoreService();
@@ -57,6 +58,7 @@ public class PunchDataStore {
         return b;
     }
 
+    //query all punches
     public static ArrayList<Punch> query(String id) {
         ArrayList<Punch> pList = new ArrayList<>();
         Query q = new Query(Punch.PUNCH_ENTITY_NAME);
@@ -73,6 +75,8 @@ public class PunchDataStore {
         return pList;
     }
 
+
+    //helper methods
     private static Key getKey() {
         return KeyFactory.createKey(Punch.PUNCH_PARENT_ENTITY_NAME, Punch.PUNCH_PARENT_KEY_NAME);
     }

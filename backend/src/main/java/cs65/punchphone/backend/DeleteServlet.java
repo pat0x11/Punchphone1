@@ -13,6 +13,7 @@ import cs65.punchphone.backend.data.PunchDataStore;
  * Created by Patrick on 3/6/17.
  */
 
+//unused servlet that would allow employer to delete a punch entry
 public class DeleteServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
