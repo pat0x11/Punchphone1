@@ -62,7 +62,7 @@ public class ScheduleFragment extends Fragment {
             totalHours += Double.parseDouble(hourArray[0]);
         }
 
-        //
+        //Add the hours to the total hours
         if(view != null && !view.getText().toString().equals("") && !total
                 .getText().toString().equals("")) {
             String currentHours = view.getText().toString();
@@ -72,12 +72,16 @@ public class ScheduleFragment extends Fragment {
             total.setText(Double.toString(totalHours+hours));
         }
 
+        //The total hours so far
         Double currentTotal = totalHours + hours;
         String message = Double.toString(currentTotal);
 
+        //Find the amount of hours that the enployer allows per day
         int employerNormalHours = MainActivity.frontEndEmployer.getNormalHrs()*7;
         int employerOvertimeHours = MainActivity.frontEndEmployer
                 .getOvertimeHrs()*7;
+
+        //display the users relation to the hours set by the employer
         if(currentTotal > employerNormalHours){
             message = Double.toString
                     (currentTotal) + " You are receiving " +
