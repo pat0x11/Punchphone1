@@ -78,7 +78,7 @@ public class WelcomeServlet extends HttpServlet {
                 "<a href=\"login.html\">Logout</a>" +
                 "</center></html>");
     }
-
+    //doPost is the same as doGet
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException{
         doGet(request, response);

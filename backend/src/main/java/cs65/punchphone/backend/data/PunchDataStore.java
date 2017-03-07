@@ -91,6 +91,7 @@ public class PunchDataStore {
         return getPunchFromEntity(e);
     }
 
+    //convert a datastore entity to a punch object
     private static Punch getPunchFromEntity (Entity e) {
         if (e == null) {
             return null;

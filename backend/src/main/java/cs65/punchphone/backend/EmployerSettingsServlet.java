@@ -30,6 +30,7 @@ public class EmployerSettingsServlet extends HttpServlet {
         //get the current Employer from the username
         Employer current= EmployerDataStore.getEmployerByUsername(username);
 
+        //setup the print writer that will contain all of the settings
         PrintWriter out = response.getWriter();
 
         out.write("<html>\n" +
@@ -68,6 +69,7 @@ public class EmployerSettingsServlet extends HttpServlet {
                 "</html>");
     }
 
+    //the do post method is the same as the doGet method in this case
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException{
         doGet(request, response);

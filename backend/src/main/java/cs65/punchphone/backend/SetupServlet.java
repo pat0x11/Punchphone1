@@ -15,6 +15,7 @@ import cs65.punchphone.backend.data.EmployerDataStore;
  * Created by Jack on 2/28/17.
  */
 
+//creates a new account on the backend
 public class SetupServlet extends HttpServlet {
 
     //the post method for this class

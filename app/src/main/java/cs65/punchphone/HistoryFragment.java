@@ -13,7 +13,7 @@ import java.util.List;
 import cs65.punchphone.data.PunchEntry;
 import cs65.punchphone.data.PunchEntryDbHelper;
 
-
+//the fragment that shows past punches
 public class HistoryFragment extends Fragment {
 
     List <PunchEntry> values; //Values to display
@@ -22,7 +22,7 @@ public class HistoryFragment extends Fragment {
     private View view; // view being used
     public Button update; //Button to update the list
 
-
+    //called when the user uses the ViewPager to get to a certain page
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

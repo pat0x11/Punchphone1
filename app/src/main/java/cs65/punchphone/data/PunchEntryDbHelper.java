@@ -13,12 +13,14 @@ import java.util.ArrayList;
  * Created by brian on 3/4/17.
  */
 
+//the database that helps the datastore on the local phone
 public class PunchEntryDbHelper extends SQLiteOpenHelper {
 
     public static final String DATABASE_NAME = "PunchPhoneDb";
     private static final String TABLE_NAME_PUNCHES = "Punches";
     private static final int DATABASE_VERSION = 1;
 
+    //definte the fields for the database
     public static final String KEY_ROW_ID = "id";
     public static final String KEY_INPUT_TYPE = "it";
     public static final String KEY_IN_DATE_TIME = "inDateTime";
@@ -30,16 +32,17 @@ public class PunchEntryDbHelper extends SQLiteOpenHelper {
     public static final String KEY_EARNINGS = "earnings";
 
 
-
+    //an array of all columns, representing punch attributes
     private String[] allColumns = { KEY_ROW_ID, KEY_INPUT_TYPE,
             KEY_IN_DATE_TIME, KEY_OUT_DATE_TIME, KEY_DURATION, KEY_COMPANY,
     KEY_SITE, KEY_NAME, KEY_EARNINGS};
 
-
+    //the constructor for the class
     public PunchEntryDbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    //setup the database...needs to be added in order to satisfy the class extension
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_ENTRIES);
@@ -96,13 +99,14 @@ public class PunchEntryDbHelper extends SQLiteOpenHelper {
         value.put(KEY_NAME, entry.getName());
         value.put(KEY_EARNINGS, entry.getEarnings());
 
-
+        //open the database connection and add everything into the database
         SQLiteDatabase db = getWritableDatabase();
         long id = db.insert(TABLE_NAME_PUNCHES, null, value);
         db.close();
         return id;
     }
 
+    //gets an arraylist of all punch entries on the local database
     public ArrayList<PunchEntry> fetchEntries(){
         SQLiteDatabase db = getReadableDatabase();
         ArrayList<PunchEntry> entries = new ArrayList<PunchEntry>();
@@ -117,7 +121,9 @@ public class PunchEntryDbHelper extends SQLiteOpenHelper {
         return entries;
     }
 
+    //a method that converts a cursor from the database to a Punch entry
     private PunchEntry cursorToEntry(Cursor cursor) {
+        //create a punch entry that will be added to later
         PunchEntry entry = new PunchEntry();
         entry.setId(cursor.getLong(0));
         entry.setInputType(cursor.getInt(1));

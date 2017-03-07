@@ -18,6 +18,7 @@ public class Punch {
     public static final String FIELD_PUNCH_OUT = "id";
     public static final String FIELD_SITE = "site";
 
+    //the variables for the class
     public String mPunchId;
     public String mUserId;
     public String mCompany;
@@ -25,6 +26,7 @@ public class Punch {
     public String mPunchOut;
     public String mSite;
 
+    //the default constructor
     public Punch(String punchid, String userid, String company,  String punchIn, String punchOut,
                  String site) {
         mPunchId = punchid;

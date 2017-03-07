@@ -30,6 +30,7 @@ import cs65.punchphone.data.PunchEntryDbHelper;
 
 //Group built
 
+//the fragment that the user punches in and out from
 public class EntryFragment extends Fragment {
 
     public static Button punchIn;                                  //punch in button
@@ -164,11 +165,11 @@ public class EntryFragment extends Fragment {
             employerLocation.setLongitude(employer.getLong());
 
 
-            if (MainActivity.currentLocation != null) {
+            //if (MainActivity.currentLocation != null) {
 
-//            if(MainActivity.currentLocation != null && MainActivity
-//                    .currentLocation.distanceTo
-//                    (employerLocation) < employer.getRadius()) {
+            if(MainActivity.currentLocation != null && MainActivity
+                    .currentLocation.distanceTo
+                    (employerLocation) < employer.getRadius()) {
 
                 //disable the punch in button
                 punchIn.setEnabled(false);
@@ -277,11 +278,13 @@ public class EntryFragment extends Fragment {
         }
         @Override
         protected void onPostExecute(String result) {
+            //alert the user that the punch was successfully saved locally
             Toast.makeText(getContext(), "Punch #" + result + " saved.", Toast.LENGTH_SHORT)
                     .show();
         }
     }
 
+    //the AsyncTask that sends a local punch to the server
     public class SendPunchTask extends AsyncTask<PunchEntry, Void, String> {
         @Override
         protected String doInBackground(PunchEntry... punchEntries) {
@@ -293,11 +296,15 @@ public class EntryFragment extends Fragment {
             String site = p.getSite();
             String punchIn = Long.toString(p.getInDateTimeMillis());
             String punchOut = Long.toString(p.getOutDateTimeMillis());
+
+            //setup the parameters of the message
             m.put("name", name);
             m.put("company", company);
             m.put("site", site);
             m.put("punchin", punchIn);
             m.put("punchout", punchOut);
+
+            //try to send it to the backend and catch the error if need be
             try {
                 ServerUtilities.post(SERVER + "/add.do", m);
                 retString = "Punched Out Successfully";

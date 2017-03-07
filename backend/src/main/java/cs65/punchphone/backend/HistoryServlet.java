@@ -28,6 +28,8 @@ public class HistoryServlet extends HttpServlet {
         String username = request.getParameter("username");
         //get company name from username
         String companyname = EmployerDataStore.getCompanyName(username);
+
+        //manually write out all of the html fields
         out.write("<html>\n" +
                 "<head>\n" +
                 "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\">\n" +
@@ -51,7 +53,6 @@ public class HistoryServlet extends HttpServlet {
                 "<th>Punch Out</th>\n" +
                 "<th>Company</th>\n" +
                 "<th>Site</th>\n" +
-//                "<th>Delete</th>\n" +
                 "</tr>\n");
         //get all pucnhes from database
         ArrayList<Punch> pList = PunchDataStore.query(null);
@@ -98,16 +99,13 @@ public class HistoryServlet extends HttpServlet {
                     "<td>" + calout + "</td>\n" +
                     "<td>" + p.mCompany + "</td>\n" +
                     "<td>" + p.mSite + "</td>\n" +
-//                    "<td><input type=\"button\" onclick=\"location.href='/delete.do?punchid="
-//                    +p.mPunchId+"&username="+username+ "&userid1="+userid+
-//                    "'\" value=\"Delete\"></td>\n" +
                     "</tr>\n");
         }
         out.write("</table>\n");
         out.write("</body><br>" +
                 "</html>");
     }
-
+    //doPost is the same as doGet
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         doGet(request, response);

@@ -62,6 +62,8 @@ public final class ServerUtilities {
 		byte[] bytes = body.getBytes();
 		HttpURLConnection conn = null;
 		try {
+
+			//setup the connection type
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setDoOutput(true);
 			conn.setUseCaches(false);
